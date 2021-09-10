@@ -116,4 +116,3 @@ wcwidth==0.1.9
 websocket-client==0.59.0
 Werkzeug==0.16.1
 zipp==3.4.1
-mysqlclient
