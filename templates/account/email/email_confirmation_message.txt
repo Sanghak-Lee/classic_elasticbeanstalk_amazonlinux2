@@ -1,0 +1,12 @@
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+
+{{ user_display }}님 플레이플리즈에 오신것을 환영합니다!
+
+다음 주소를 클릭해 회원가입을 완료해주세요.
+
+{{ activate_url }}
+
+{% endblocktrans %}{% endautoescape %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain %} 땡큐프롬 {{ site_name }}!
+
+{{ site_domain }}{% endblocktrans %}

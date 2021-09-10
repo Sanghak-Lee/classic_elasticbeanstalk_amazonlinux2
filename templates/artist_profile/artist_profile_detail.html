@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+- {{userprofile.user.username}}아티스트
+{% endblock %}
+
+{% block content %}
+ <!-- Body-->
+  <body>
+
+    <!-- Main content-->
+    <!-- Wraps everything except footer to push footer to the bottom of the page if there is little content -->
+    <main class="cs-page-wrapper position-relative">
+
+      <!-- Page content-->
+      <section class="container mt-5 mb-lg-6 mb-5 pt-md-4">
+        <ul class="nav nav-muted mb-2">
+          <li class="nav-item mr-2">
+            <a class="nav-link d-inline-block mr-2 p-0 font-weight-normal" href="#">
+              {{userprofile.start_date}}
+            </a>
+            <span class="text-border">|</span>
+          </li>
+          <li class="nav-item mr-2">
+            <a class="nav-link d-inline-block mr-2 p-0 font-weight-normal" href="#">
+              {{userprofile.instrument}}
+            </a>
+          </li>
+        </ul>
+        <div class="d-flex justify-content-between mb-lg-5 mb-4">
+          <h1 class="mb-0">피아니스트, {{userprofile}} 입니다</h1>
+
+          <!-- Share + Live demo -->
+          <div class="d-flex mt-lg-3 mt-2">
+            <div class="icon-dropdown icon-dropleft">
+              <a class="social-btn sb-outline sb-round" data-toggle="tooltip" data-placement="top" title="Share">
+                <i class="cxi-share"></i>
+              </a>
+              <ul class="icon-drop-menu bg-light">
+                <li class="icon-drop-item">
+                  <a href="#" class="social-btn sb-outline sb-round">
+                    <i class="cxi-linkedin"></i>
+                  </a>
+                </li>
+                <li class="icon-drop-item">
+                  <a href="#" class="social-btn sb-outline sb-round">
+                    <i class="cxi-twitter"></i>
+                  </a>
+                </li>
+                <li class="icon-drop-item">
+                  <a href="#" class="social-btn sb-outline sb-round">
+                    <i class="cxi-facebook"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <a href="#" class="social-btn sb-outline sb-round ml-2" data-toggle="tooltip" data-placement="top" title="Go to project">
+              <i class="cxi-arrow-share"></i>
+            </a>
+             {% if request.user.userprofile in userprofile.followers.all %}
+             <a href="{% url 'core:follow_userprofile' userprofile.pk %}?next={{ request.path|urlencode }}" class="social-btn sb-outline sb-round ml-2" data-toggle="tooltip" data-placement="top" title="Unfollow!">
+             <i class="cxi-heart" style="color: red;"></i>
+             </a>
+             {% else %}
+             <a href="{% url 'core:follow_userprofile' userprofile.pk %}?next={{ request.path|urlencode }}" class="social-btn sb-outline sb-round ml-2" data-toggle="tooltip" data-placement="top" title="Follow!">
+             <i class="cxi-heart" style="color: gray;"></i>
+             </a>
+             {% endif %}
+          </div>
+        </div>
+        <p align = center>
+            <div class="Artist_Page_Banner_Box">
+              <img src="{{ userprofile.image.url }}" align = "center" class = "Artist_Page_Banner_Image" alt="Project image">
+            </div>
+        </p>
+      </section>
+
+
+      <!-- Portfolio -->
+      <section class="container mb-lg-6 mb-5">
+        <h2 class="h6 mb-3 text-uppercase">나에 대한 소개</h2>
+        <div class="row mb-lg-6 mb-sm-5 mb-4">
+          <div class="col-md-8">
+            <p class="mb-3 lead font-weight-bold">저는 피아노로 디즈니 OST를 연주할 때 큰 행복을 느낍니다.</p>
+            <p class="mb-md-0 text-muted">디즈니 덕후분들 안녕하세요! 한양대학교 피아노과에 재학중이며 현재는 비욘디멘션에서 근무하고 있는 이은지PM입니다.
+          </div>
+          <div class="col-lg-3 col-md-4 ml-auto">
+            <div class="row justify-content-between">
+              <div class="col-xl-5 col-md-6 col-sm-3 col-6 mb-4 pb-1">
+                <h3 class="h6 mb-2">학교</h3>
+                <ul class="list-unstyled font-size-sm">
+                  <li>부산예술고</li>
+                  <li>한양대 피아노과</li>
+                </ul>
+              </div>
+              <div class="col-xl-5 col-md-6 col-sm-3 col-6 mb-4 pb-1">
+                <h3 class="h6 mb-2">Category</h3>
+                <ul class="list-unstyled font-size-sm">
+                  <li>디즈니OST</li>
+                  <li>피아노</li>
+                </ul>
+              </div>
+              <!--<div class="col-xl-5 col-md-6 col-sm-3 col-6 mb-4 pb-1">
+                <h3 class="h6 mb-2">Design</h3>
+                <ul class="list-unstyled font-size-sm">
+                  <li>UI/UX Design</li>
+                  <li>Art Direction</li>
+                </ul>
+              </div>
+              <div class="col-xl-5 col-md-6 col-sm-3 col-6 mb-4 pb-1">
+                <h3 class="h6 mb-2 pb-1">Client</h3>
+                <img src="../../assets/img/creative-agency/logo/envato.svg" alt="Envato">
+              </div>-->
+            </div>
+          </div>
+        </div>
+        <div class="jumbotron position-relative bg-size-cover bg-position-center bg-no-repeat text-center py-6" style="background-image: url(/static/img/classic_logo.png);">
+          <div class="bg-overlay rounded opacity-60"></div>
+          <div class="bg-overlay-content my-5 py-5">
+            <a class="cs-video-btn cs-video-btn-lg my-3" href="https://vimeo.com/577128380" data-gallery-video></a>
+            <div class="pt-1"></div>          </div>
+        </div>
+      </section>
+
+     <!-- Portfolio2 -->
+      <section class="container mb-lg-6 mb-5">
+        <h2 class="h6 mb-3 text-uppercase">디즈니 OST</h2>
+        <div class="row mb-lg-6 mb-sm-5 mb-4">
+          <div class="col-md-8">
+            <p class="mb-md-0 text-muted">겨울왕국 OST - LET IT GO</p>
+          </div>
+        </div>
+        <div class="jumbotron position-relative bg-size-cover bg-position-center bg-no-repeat text-center py-6" style="background-image: url(/static/img/classic_logo.png);">
+          <div class="bg-overlay rounded opacity-60"></div>
+          <div class="bg-overlay-content my-5 py-5">
+            <a class="cs-video-btn cs-video-btn-lg my-3" href="https://www.youtube.com/watch?v=Ztos8CKMIyc&ab_channel=DimaShishkov" data-gallery-video></a>
+            <div class="pt-1"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="container mb-lg-6 mb-5">
+        <h2 class="h6 mb-3 text-uppercase">디즈니 OST - SPEECHLESS</h2>
+        <div class="row mb-lg-6 mb-sm-5 mb-4">
+          <div class="col-md-8">
+            <p class="mb-md-0 text-muted">"SPEECHLESS"는 디즈니 영화 중 "알라딘"의 여주인공이 열변을 토하는 부분의 노래입니다. 《알라딘》은 2019년 개봉한 미국의 뮤지컬, 로맨스, 판타지, 모험 영화이다. 가이 리치가 감독과 공동각본을 맡았으며, 월트 디즈니 픽처스에서 제작한다. 천일야화의 알라딘과 마법의 램프 이야기를 원작으로 하며, 1992년 동명 애니메이션 영화를 실사화한 작품이다.</p>
+          </div>
+        </div>
+      </section>
+
+    <link rel="stylesheet" media="screen" href="/static/css/classic.css">
+      <section class="container mb-lg-6 mb-5">
+        <div class="row mb-lg-6 mb-5">
+          <div class="col-lg-8 col-sm-10 mx-auto">
+            <blockquote class="blockquote2 mb-0">
+              <p class="pb-2">아주 놀랐습니다. 천천히 감미로운 찬란한 햇살에 눈이 부셔 아름다운 말 모음 크롤링. 이상학. eaa0305. server_dev. 역시 대단한 아티스트이며 웹 크롤링으로 만들어낸 찬란, 찬사, 아름다운, 멋짐이란 단어로 수식할 수 있을지 과연 의문이 듭니다. 훌륭한 아티스트! 피아니스트!</p>
+              <footer class="media align-items-center">
+                <img class="mr-3 rounded-circle" src="/static/img/logo.png" width="72" alt="Courtney Alexander">
+                <div class="media-body">
+                  <h3 class="h6 mb-0">쇼비농 드 우와함</h3>
+                  <span class="font-size-sm text-muted">높은 지위, 어느 멋진 회사의</span>
+                </div>
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Achievements -->
+      <section class="container mb-lg-6 mb-5 pt-3 pt-lg-0">
+        <h3 class="h6 mb-2 text-uppercase">Honors</h3>
+        <div class="row">
+          <div class="col-xl-4 col-lg-5">
+            <h2 class="h1 mb-lg-5 mb-4">The awards won by our studio</h2>
+          </div>
+          <div class="col-lg-7 mt-2 d-flex flex-sm-row flex-column align-items-start justify-content-sm-between flex-lg-nowrap flex-wrap ml-auto">
+            <div class="d-flex flex-sm-column justify-content-center mb-lg-0 mb-3 px-3">
+              <a href="#" class="cs-swap-image mr-sm-0 mr-3 mb-3">
+                <img src="../../assets/img/creative-agency/logo/webby.svg" class="cs-swap-to" width="60" alt="Brand logo hover">
+                <img src="../../assets/img/creative-agency/logo/webby-g.svg" class="cs-swap-from" width="60" alt="Brand logo">
+              </a>
+              <span class="d-block pt-1 font-size-sm text-dark text-nowrap">4x mobile of the day</span>
+            </div>
+            <div class="d-flex flex-sm-column justify-content-center mb-lg-0 mb-3 px-3">
+              <a href="#" class="cs-swap-image mr-sm-0 mr-3 mb-3">
+                <img src="../../assets/img/creative-agency/logo/cssda.svg" class="cs-swap-to" width="60" alt="Brand logo hover">
+                <img src="../../assets/img/creative-agency/logo/cssda-g.svg" class="cs-swap-from" width="60" alt="Brand logo">
+              </a>
+              <span class="d-block pt-1 font-size-sm text-dark text-nowrap">1x Kudos</span>
+            </div>
+            <div class="d-flex flex-sm-column justify-content-center mb-lg-0 mb-3 px-3">
+              <a href="#" class="cs-swap-image mr-sm-0 mr-3 mb-3">
+                <img src="../../assets/img/creative-agency/logo/awwwards.svg" class="cs-swap-to" width="60" alt="Brand logo hover">
+                <img src="../../assets/img/creative-agency/logo/awwwards-g.svg" class="cs-swap-from" width="60" alt="Brand logo">
+              </a>
+              <span class="d-block pt-1 font-size-sm text-dark text-nowrap">3x website of the day</span>
+            </div>
+            <div class="d-flex flex-sm-column justify-content-center mb-lg-0 mb-3 px-3">
+              <a href="#" class="cs-swap-image mr-sm-0 mr-3 mb-3">
+                <img src="../../assets/img/creative-agency/logo/fwa.svg" class="cs-swap-to" width="60" alt="Brand logo hover">
+                <img src="../../assets/img/creative-agency/logo/fwa-g.svg" class="cs-swap-from" width="60" alt="Brand logo">
+              </a>
+              <span class="d-block pt-1 font-size-sm text-dark text-nowrap">2x best website</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Latest projects -->
+      <section class="bg-secondary py-lg-6 pt-5 pb-4">
+        <div class="container pt-2 pt-lg-0">
+          <h3 class="h6 mb-2 text-uppercase">Enjoy our latest projects</h3>
+          <div class="mb-lg-5 mb-4 d-flex justify-content-between">
+            <h2 class="h1 mb-0">Selected work</h2>
+            <div class="tns-custom-controls cs-controls-inverse mb-md-n4" id="tns-portfolio-controls" tabindex="0">
+              <button type="button" data-controls="prev" tabindex="-1">
+                <i class="cxi-arrow-left"></i>
+              </button>
+              <button type="button" data-controls="next" tabindex="-1">
+                <i class="cxi-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="container px-0">
+
+          <!-- Carousel -->
+          <div class="cs-carousel mt-n2 mb-lg-5 mb-4">
+            <div class="cs-carousel-inner" data-carousel-options='{
+              "nav": false,
+              "controlsContainer": "#tns-portfolio-controls",
+              "responsive": {
+                "0": {
+                  "items": 1
+                },
+                "576": {
+                  "items": 2
+                },
+                "768": {
+                  "items": 3
+                }
+              }
+            }'>
+              <div class="rounded">
+                <a class="cs-portfolio-card-scale text-decoration-none mt-3 mx-3" href="portfolio-single-v2.html">
+                  <div class="cs-portfolio-card-img">
+                    <img src="../../assets/img/creative-agency/portfolio/01.jpg" alt="Card image">
+                  </div>
+                  <div class="cs-portfolio-card-body">
+                    <h3 class="cs-portfolio-card-title">Pink Fur Light Bulb Creative Concept</h3>
+                    <span class="font-size-sm text-muted">Web Design</span>
+                  </div>
+                </a>
+              </div>
+              <div class="rounded">
+                <a class="cs-portfolio-card-scale text-decoration-none mt-3 mx-3" href="portfolio-single-v2.html">
+                  <div class="cs-portfolio-card-img">
+                    <img src="../../assets/img/creative-agency/portfolio/02.jpg" alt="Card image">
+                  </div>
+                  <div class="cs-portfolio-card-body">
+                    <h3 class="cs-portfolio-card-title">Minimalistic Mobile Interface</h3>
+                    <span class="font-size-sm text-muted">Mobile Apps</span>
+                  </div>
+                </a>
+              </div>
+              <div class="rounded">
+                <a class="cs-portfolio-card-scale text-decoration-none mt-3 mx-3" href="portfolio-single-v2.html">
+                  <div class="cs-portfolio-card-img">
+                    <img src="../../assets/img/creative-agency/portfolio/03.jpg" alt="Card image">
+                  </div>
+                  <div class="cs-portfolio-card-body">
+                    <h3 class="cs-portfolio-card-title">Hardcover Book Concept</h3>
+                    <span class="font-size-sm text-muted">Branding</span>
+                  </div>
+                </a>
+              </div>
+              <div class="rounded">
+                <a class="cs-portfolio-card-scale text-decoration-none mt-3 mx-3" href="portfolio-single-v2.html">
+                  <div class="cs-portfolio-card-img">
+                    <img src="../../assets/img/creative-agency/portfolio/04.jpg" alt="Card image">
+                  </div>
+                  <div class="cs-portfolio-card-body">
+                    <h3 class="cs-portfolio-card-title">Mobile App Icon Design</h3>
+                    <span class="font-size-sm text-muted">Mobile App Design</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Contact links -->
+      <section class="container mb-4 mb-sm-5 mt-3 mt-md-4 mt-lg-0 px-3 py-lg-6 py-5">
+        <h2 class="h3 mb-5 pb-2 text-center">Let's build something amazing together!</h2>
+        <div class="row justify-content-center px-2 px-sm-0">
+          <div class="col-md-3 col-sm-4 col px-2 px-sm-3">
+            <h3 class="h6 pb-lg-3 pb-2 text-uppercase text-muted text-center">Follow us</h3>
+            <a class="d-block" href="#">
+              <img class="rounded" src="../../assets/img/creative-agency/logo/block-dribbble.svg" alt="Dribble">
+            </a>
+            <a class="mt-sm-4 mt-3 d-block" href="#">
+              <img class="rounded" src="../../assets/img/creative-agency/logo/block-behance.svg" alt="Behance">
+            </a>
+          </div>
+          <div class="divider-vertical d-sm-block d-none offset-sm-1"></div>
+          <div class="col-md-3 col-sm-4 col offset-sm-1 px-2 px-sm-3">
+            <h3 class="h6 pb-lg-3 pb-2 text-uppercase text-muted text-center">Get in touch</h3>
+            <a class="d-block" href="#">
+              <img class="rounded" src="../../assets/img/creative-agency/logo/block-upwork.svg" alt="Upwork">
+            </a>
+            <a class="mt-sm-4 mt-3 d-block" href="mailto:hello@example.com">
+              <img class="rounded" src="../../assets/img/creative-agency/logo/block-email.svg" alt="Email">
+            </a>
+          </div>
+        </div>
+      </section>
+    </main><!-- / Main content: .cs-page-wrapper -->
+
+
+
+
+
+  </body>
+
+{% endblock content %}
+

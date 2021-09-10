@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- SEO Meta Tags-->
+
+  <title>PlayPlz {% block head_title %} - 500 공사중{% endblock %}</title>
+  <link rel = "icon" href = "/static/img/classic_logo.png">
+  {% block extra_head %}
+  {% endblock %}
+
+
+<!-- bootstrap4 font -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+
+
+<!-- Favicon and Touch Icons-->
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/new_assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="/static/new_assets/img/site.webmanifest">
+  <link rel="mask-icon" color="#5bbad5" href="/static/new_assets/img/safari-pinned-tab.svg">
+  <meta name="msapplication-TileColor" content="#766df4">
+  <meta name="theme-color" content="#ffffff">
+
+
+
+
+
+
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+  </style>
+
+
+
+
+</head>
+
+
+{% if request.user.is_authenticated%}
+{% load cart_template_tags %}
+{% get_order_list as order_list %}
+{% endif %}
+{% include "navbar.html" %}
+    <!-- message -->
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+<body>
+  <!-- Breadcrumb -->
+      <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+          <ol class="breadcrumb breadcrumb-alt mb-0">
+            <li class="breadcrumb-item">
+              <a href="{% url 'core:home' %}"><i class="cxi-home"></i></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">서버속을 헤메는 중...</li>
+          </ol>
+        </div>
+      </nav>
+<div style ="text-align:center">
+<h1>페이지 공사 중</h1>
+</div>
+<div style ="text-align:center">
+<img src = "/static/img/error/404.gif">
+</div>
+
+
+<!-- Channel Plugin Scripts -->
+<script>
+  (function() {
+    var w = window;
+    if (w.ChannelIO) {
+      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+    }
+    var ch = function() {
+      ch.c(arguments);
+    };
+    ch.q = [];
+    ch.c = function(args) {
+      ch.q.push(args);
+    };
+    w.ChannelIO = ch;
+    function l() {
+      if (w.ChannelIOInitialized) {
+        return;
+      }
+      w.ChannelIOInitialized = true;
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+      s.charset = 'UTF-8';
+      var x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+    }
+    if (document.readyState === 'complete') {
+      l();
+    } else if (window.attachEvent) {
+      window.attachEvent('onload', l);
+    } else {
+      window.addEventListener('DOMContentLoaded', l, false);
+      window.addEventListener('load', l, false);
+    }
+  })();
+  ChannelIO('boot', {
+    "pluginKey": "7d016e02-ca8c-4b03-854a-cb6a67c28f72"
+  });
+</script>
+<!-- End Channel Plugin -->
+
+
+
+
+
+
+
+
+
+
+  {% include "footer.html" %}
+  {% include "scripts.html" %}
+
+
+
+ <!-- Back to top button-->
+
+
+</body>
+
+<!-- Main Theme Styles + Bootstrap-->
+ <link rel="stylesheet" media="screen" href="/static/new_assets/css/demo/ecommerce/theme.min.css">
+<!-- Vendor Styles-->
+<link rel="stylesheet" media="screen" href="/static/new_assets/vendor/tiny-slider/dist/tiny-slider.css"/>
+    <!-- Vendor scripts: js libraries and plugins-->
+    <script src="/static/new_assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/new_assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="/static/new_assets/vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+
+    <!-- Main theme script-->
+    <script src="/static/new_assets/js/theme.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    <link rel="stylesheet" media="screen" href="/static/css/classic.css">
+
+
+    <script src="/static/new_assets/vendor/jquery/dist/jquery.slim.min.js"></script>
+    <script src="/static/new_assets/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/new_assets/assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="/static/new_assets/assets/vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+    <script src="/static/new_assets/assets/vendor/css-element-queries/src/ResizeSensor.js"></script>
+    <script src="/static/new_assets/assets/vendor/sticky-sidebar/dist/sticky-sidebar.min.js"></script>
+
+    <!-- Main theme script-->
+    <script src="/static/new_assets/assets/js/theme.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+
+
+</html>

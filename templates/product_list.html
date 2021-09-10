@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block head_title %}
+- 앨범 둘러보기
+{% endblock %}
+
+{% block content %}
+
+<script>
+    <link rel="stylesheet" media="screen" href="/static/new_assets/css/demo/online-courses/theme.min.css">
+
+
+    <script src="/static/new_assets/vendor/jarallax/dist/jarallax.min.js"></script>
+    <script src="/static/new_assets/vendor/simplebar/dist/simplebar.min.js"></script>
+    <script src="/static/new_assets/vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+    <script src="/static/new_assets/vendor/mixitup/dist/mixitup.min.js"></script>
+    <script src="/static/new_assets/vendor/jquery/dist/jquery.slim.min.js"></script>
+    <script src="/static/new_assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/new_assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="/static/new_assets/vendor/simplebar/dist/simplebar.min.js"></script>
+    <script src="/static/new_assets/vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+    <script src="/static/new_assets/vendor/nouislider/distribute/nouislider.min.js"></script>
+    <!-- Main theme script-->
+    <script src="/static/new_assets/js/theme.min.js"></script>
+
+
+    <link rel="stylesheet" media="screen" href="/static/new_assets/vendor/simplebar/dist/simplebar.min.css"/>
+    <link rel="stylesheet" media="screen" href="/static/new_assets/vendor/tiny-slider/dist/tiny-slider.css"/>
+    <link rel="stylesheet" media="screen" href="/static/new_assets/vendor/nouislider/distribute/nouislider.min.css"/>
+
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="/static/new_assets/css/demo/ecommerce/theme.min.css">
+
+
+</script>
+
+<div data-filter-grid>
+     <!-- Shop catalog -->
+      <section class="container pt-3 pb-5 pb-md-6 mb-2 mb-lg-0">
+
+
+        <!-- Toolbar + Pagination -->
+        <div class="row mb-4 pb-2">
+          <div class="col-md-3 pr-lg-4 mb-3 mb-md-0">
+
+            <!-- Show / hide filters on Desktop -->
+            <div class="d-none d-lg-block">
+              <button type="button" class="btn btn-primary btn-block d-none d-lg-block" data-filters-hide="#filtersSidebar">
+                <i class="cxi-filter-1 mr-1"></i>
+                Hide filters
+              </button>
+              <button type="button" class="btn btn-primary btn-block mt-0 d-lg-none" data-filters-show="#filtersSidebar">
+                <i class="cxi-filter-2 mr-1"></i>
+                Show filters
+              </button>
+            </div>
+
+            <!-- Show / hide filters (off-canvas) on Mobile -->
+            <button type="button" class="btn btn-primary btn-block mt-0 d-lg-none" data-toggle="offcanvas" data-target="filtersOffcanvas">
+              <i class="cxi-filter-2 mr-1"></i>
+              Show filters
+            </button>
+          </div>
+
+          <div class="col-md-9">
+            <div class="d-flex align-items-center">
+              <div class="form-inline flex-nowrap mr-3 mr-xl-5">
+                  <!-- Widget: Tags -->
+                  <div class="cs-widget">
+                    <!-- Pilled tag -->
+                      {% if mdpick == null %}
+                      <a class="cs-tag cs-tag-pill" href="#">#All</a>
+                      {% else %}
+                      <a class="cs-tag cs-tag-pill" href="#">#{{mdpick}}</a>
+                      {% endif %}
+
+                  </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row flex-lg-nowrap">
+
+
+          <!-- Filters (sidebar) -->
+          <div id="filtersSidebar" class="col-lg-3 pr-lg-4">
+            <div id="filtersOffcanvas" class="cs-offcanvas cs-offcanvas-collapse">
+              <div class="cs-offcanvas-cap align-items-center border-bottom mb-3">
+                <h2 class="h5 mb-0">Shop filters</h2>
+                <button class="close mr-n1" type="button" data-dismiss="offcanvas" aria-label="Close">
+                  <span class="h2 font-weight-normal mt-n1 mb-0" aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="cs-offcanvas-body accordion-alt pb-4">
+                <!-- Category -->
+                <div class="card border-bottom">
+                  <div class="card-header pt-0 pb-3" id="category-panel">
+                    <h6 class="accordion-heading">
+                      <a href="#category" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="category">
+                        Instrument Types
+                        <span class="accordion-indicator"></span>
+                      </a>
+                    </h6>
+                  </div>
+                  <div class="collapse show" id="category" aria-labelledby="category-panel">
+                    <div class="cs-widget-data-list cs-filter">
+                      <div class="input-group-overlay mb-3">
+                        <input type="text" class="cs-filter-search form-control form-control-sm appended-form-control" placeholder="Search the Instruments Type">
+                        <div class="input-group-append-overlay">
+                          <span class="input-group-text">
+                            <i class="cxi-search font-size-sm"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <ul class="cs-filter-list list-unstyled pr-3" style="height: 12rem;" data-simplebar data-simplebar-auto-hide="false">
+
+                        <li class="cs-filter-item">
+                        <span class="nav-link cs-filter-item-text" data-filter="all">
+                          전체
+                        </span>
+                        </li>
+
+                        <li class="cs-filter-item">
+                        <span class="nav-link cs-filter-item-text" data-filter=".H">
+                          현악기
+                        </span>
+                        </li>
+                        <li class="cs-filter-item">
+                        <span class="nav-link cs-filter-item-text" data-filter=".G">
+                          관악기
+                        </span>
+                        </li>
+
+                        <li class="cs-filter-item">
+                        <span class="nav-link cs-filter-item-text" data-filter=".T">
+                          타악기
+                        </span>
+                        </li>
+
+                        <li class="cs-filter-item">
+                        <span class="nav-link cs-filter-item-text" data-filter=".ETC">
+                          ETC
+                        </span>
+                        </li>
+
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Instrument -->
+                <div class="card border-bottom">
+                  <div class="card-header py-3" id="material-panel">
+                    <h6 class="accordion-heading">
+                      <a href="#material" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="material">
+                        Artist
+                        <span class="accordion-indicator"></span>
+                      </a>
+                    </h6>
+                  </div>
+                  <div class="collapse show" id="material" aria-labelledby="material-panel">
+                    <div class="cs-widget-data-list cs-filter">
+                      <div class="input-group-overlay mb-3">
+                        <input type="text" class="cs-filter-search form-control form-control-sm appended-form-control" placeholder="Search the name of Artist">
+                        <div class="input-group-append-overlay">
+                          <span class="input-group-text">
+                            <i class="cxi-search font-size-sm"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <ul class="cs-filter-list list-unstyled pr-3" style="height: 12rem;" data-simplebar data-simplebar-auto-hide="false">
+
+                        <li class="cs-filter-item">
+                        <span class="nav-link cs-filter-item-text" data-filter="all">
+                          전체
+                        </span>
+                        </li>
+
+                        {% for artist in artist_list %}
+
+                        <li class="cs-filter-item">
+                        <span class="nav-link cs-filter-item-text" data-filter=".{{artist.username}}">
+                          {{artist.username}}
+                        </span>
+                        </li>
+                        {% endfor %}
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Product grid -->
+          <div class="col">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3" data-filters-columns>
+
+              {% for item in object_list %}
+              {% if item.onlyforartist == False %}
+              {% if item.onlyforspecial == False %}
+              <!-- Item -->
+
+              <div class="cs-grid-item {{item.category}} {{item.user.username}} col pb-sm-2 mb-grid-gutter">
+                <div class="card card-product mx-auto">
+
+                  <div class="card-product-img">
+                    <a href="{{ item.get_absolute_url }}" class="card-img-top">
+                      <img src="{{ item.image.url }}" alt="Product image">
+                    </a>
+                    <div class="card-product-widgets-bottom">
+                      <a href="{{item.user.userprofile.get_absolute_url}}" class="cxi-profile ml-auto" style="color:white;" data-placement="top" data-toggle="tooltip" title="{{item.user.username}} 아티스트"></a>
+
+                    </div>
+
+
+                  </div>
+
+
+
+
+
+                  <div class="card-product-widgets-bottom">
+
+                  {% if request.user in item.like_user.all %}
+                  <a href="{% url 'core:like_item' pk=item.pk select=1 %}" class="btn-wishlist ml-auto active hover" data-toggle="tooltip" data-placement="left" title="Delete from wishlist" > {{ item.like_user.count }}</a>
+
+                  {% else %}
+                  <a href="{% url 'core:like_item' pk=item.pk select=1 %}" class="btn-wishlist ml-auto hover" data-toggle="tooltip" data-placement="left" title="Add to wishlist" > {{ item.like_user.count }}</a>
+                  {% endif %}
+                  </div>
+
+
+
+
+
+                  <div class="card-body pb-2">
+                    <h3 class="card-product-title text-truncate mb-2">
+                      <a href="{{ item.get_absolute_url }}" class="nav-link">{{item.title}}</a>
+                    </h3>
+                    <div class="d-flex align-items-center">
+                     {% if item.discount_price %}
+                     <del class="d-inline-block ml-2 pl-1 text-muted">{{ item.price|intcomma }}&#8361;</del>
+                     <span class="h5 d-inline-block text-danger mb-0"> {{ item.discount_price|intcomma }}&#8361;</span>
+                     {% else %}
+                     <span class="h5 d-inline-block mb-0">{{ item.price|intcomma }}&#8361;</span>
+                     {% endif %}
+                    </div>
+                  </div>
+                  <div class="card-footer">
+          <a href="{{ item.get_add_to_cart_url }}" class="btn btn-primary btn-block">
+            <i class="fas fa-compact-disc ml-1"></i>
+            내 앨범에 추가하기
+          </a>
+
+                  </div>
+                </div>
+              </div>
+
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+
+
+        </div>
+          </div>
+
+</div>
+      </section>
+    </div>
+  <!--Pagination-->
+ {% if mdpick == null %}
+            {% if is_paginated %}
+                <nav class="d-flex justify-content-center wow fadeIn">
+                    <ul class="pagination pg-blue">
+
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+ {% endif %}
+
+
+{% endblock content%}
+

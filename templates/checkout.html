@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <main >
+    <div class="container wow fadeIn">
+      <h2 class="my-5 h2 text-center">주문</h2>
+      <div class="row">
+        <div class="col-md-8 mb-4">
+          <div class="card">
+            <form method="POST" class="card-body">
+              {% csrf_token %}
+
+              <h3>요청사항</h3>
+              <div class='hideable_shipping_form'>
+
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='example@naver.com' id='email' name='email' class='form-control' />
+                  <label for="email" class="">이메일</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='저희 어머님 생신에 맞는 노래를...' id='request' name='request' class='form-control' value="{{order.pre_request}}"/>
+                  <label for="request" class=""> 아티스트에게 부탁</label>
+                </div>
+
+               <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='010-xxxx-xxxx' id='phone' name='phone' class='form-control'/>
+                  <label for="phone" class="">핸드폰 번호</label>
+                </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                <label for="zip"> 원하시는 언어</label>
+                <input type='text' placeholder='영어, 한국어...' id='zip' name='zip' class='form-control' />
+                <div class="invalid-feedback">
+                언어 선택이 필요합니다!
+                </div>
+                </div>
+               </div>
+
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" name="same_special_address" id="same_special_address">
+                  <label class="custom-control-label" for="same_special_address">특별요청 사항이 없습니다</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" name="set_default_address" id="set_default_address">
+                  <label class="custom-control-label" for="set_default_address">요청사항 저장하기</label>
+                </div>
+
+              </div>
+
+              {% if default_address %}
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="use_default_address" id="use_default_address">
+                <label class="custom-control-label" for="use_default_address">저장되어있는 요청사항 사용하기: {{ default_address|truncatechars:10}}</label>
+              </div>
+              {% endif %}
+
+              <hr>
+              <br><br>
+              <h3>특별한 요청 (추가요금)</h3>
+
+              <div class='hideable_billing_form'>
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='비가 오는날 흐느끼듯 슬프게...' id='s_email' name='s_email' class='form-control' />
+                  <label for="s_email" class="">특별 요구사항 1</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='검정색 정장을 입고...' id='s_request' name='s_request' class='form-control' />
+                  <label for="s_request" class="">특별 요구사항 2</label>
+                </div>
+
+
+              <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='010-xxxx-xxxx' id='s_phone' name='s_phone' class='form-control' />
+                  <label for="s_phone" class="">핸드폰 번호</label>
+
+                </div>
+                </div>
+
+                  <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="s_zip">원하시는 언어</label>
+                    <input type='text' placeholder='영어, 한국어...' id='s_zip' name='s_zip' class='form-control' />
+                    <div class="invalid-feedback">
+                      언어 선택이 필요합니다!
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" name="set_default_special_address" id="set_default_special_address">
+                  <label class="custom-control-label" for="set_default_special_address">스페셜 요청사항 저장하기</label>
+                </div>
+
+              </div>
+
+              {% if default_special_address %}
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="use_default_special_address" id="use_default_special_address">
+                <label class="custom-control-label" for="use_default_special_address">저장되어 있는 스페셜 요청사항 사용하기: {{ default_special_address.email|truncatechars:16}}</label>
+              </div>
+              {% endif %}
+              <hr>
+
+              <h3>결제방법</h3>
+
+              <div class="d-block my-3">
+                {% for value, name in form.fields.payment_option.choices %}
+                <div class="custom-control custom-radio">
+                  <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" class="custom-control-input" required>
+                  <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
+                </div>
+                {% endfor %}
+              </div>
+
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">결제하기</button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+          {% include "order_snippet.html" %}
+
+        </div>
+
+
+      </div>
+
+    </div>
+  </main>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+<script>
+var hideable_shipping_form = $('.hideable_shipping_form');
+var hideable_billing_form = $('.hideable_billing_form');
+
+var use_default_address = document.querySelector("input[name=use_default_address]");
+var use_default_special_address = document.querySelector("input[name=use_default_special_address]");
+
+use_default_address.addEventListener('change', function() {
+  if (this.checked) {
+    hideable_shipping_form.hide();
+  } else {
+    hideable_shipping_form.show();
+  }
+})
+
+use_default_special_address.addEventListener('change', function() {
+  if (this.checked) {
+    hideable_billing_form.hide();
+  } else {
+    hideable_billing_form.show();
+  }
+})
+
+</script>
+{% endblock extra_scripts %}
+

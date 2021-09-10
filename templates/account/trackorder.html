@@ -1,0 +1,87 @@
+<section class="container pt-3 pt-md-4 pb-3 pb-sm-4 pb-lg-5 mb-4">
+
+            <!--도식화 -->
+
+{% if b.ordered_detail == 1 %}
+            <div>
+            <img src ="/static/img/ordertrack/주문창2.png">
+            </div>
+{% elif b.ordered_detail == 2 %}
+              <div>
+            <img src ="/static/img/ordertrack/주문창3.png">
+            </div>
+{% elif b.ordered_detail == 3 %}
+              <div>
+            <img src ="/static/img/ordertrack/주문창4.png">
+            </div>
+{% elif b.ordered_detail == 4 %}
+              <div>
+            <img src ="/static/img/ordertrack/주문창5.png">
+            </div>
+{% endif %}
+
+
+            <!-- 표 -->
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead class="font-size-lg">
+                  <tr>
+                    <th class="border-0"></th>
+                    <th class="border-0">단계</th>
+                    <th class="border-0">아티스트</th>
+                    <th class="border-0">날짜</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if b.ordered_detail > 1 %}
+                  <tr class="cs-step-vertical active">
+                    <th class="pr-3 position-relative border-0" scope="row">
+                      <div class="cs-step-line"></div>
+                    </th>
+                    <td class="py-3">주문 접수</td>
+                    <td class="py-3">{{b.item.user.username}}</td>
+                    <td class="py-3">{{a.ordered_date}}</td>
+                  </tr>
+                  {% endif %}
+
+                  {% if b.ordered_detail > 2 %}
+                  <tr class="cs-step-vertical active">
+                    <th class="pr-3 position-relative border-0" scope="row">
+                      <div class="cs-step-line"></div>
+                    </th>
+                    <td class="py-3">제작 중</td>
+                    <td class="py-3">{{b.item.user.username}}</td>
+                    <td class="py-3">{{b.article_upload_time}}</td>
+                  </tr>
+                  {% endif %}
+
+                  {% if b.ordered_detail > 2 %}
+                  <tr class="cs-step-vertical active">
+                    <th class="pr-3 position-relative border-0" scope="row">
+                      <div class="cs-step-line"></div>
+                    </th>
+                    <td class="py-3">편집/배송 중</td>
+                    <td class="py-3">{{b.item.user.username}}</td>
+                    <td class="py-3">??</td>
+                  </tr>
+                  {% endif %}
+
+                  {% if b.ordered_detail > 3 %}
+                  <tr class="cs-step-vertical active">
+                    <th class="pr-3 position-relative border-0" scope="row">
+                      <div class="cs-step-line"></div>
+                    </th>
+                    <td class="py-3">도착</td>
+                    <td class="py-3">{{b.item.user.username}}</td>
+                    <td class="py-3">??</td>
+                  </tr>
+                  {% endif %}
+
+                </tbody>
+              </table>
+            </div>
+
+
+
+
+      </section>

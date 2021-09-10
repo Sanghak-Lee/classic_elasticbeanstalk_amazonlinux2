@@ -1,0 +1,863 @@
+{% extends "base.html" %}
+{% load account socialaccount %}
+
+{% block head_title %}
+    회사소개
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" media="screen" href="/static/new_assets/vendor/simplebar/dist/simplebar.min.css"/>
+    <link rel="stylesheet" media="screen" href="/static/new_assets/vendor/tiny-slider/dist/tiny-slider.css"/>
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="/static/new_assets/css/demo/construction/theme.min.css">
+    <link rel="stylesheet" media="screen" href="/static/new_assets/css/demo/creative-agency/theme.min.css">
+
+    <!-- Vendor Styles-->
+    <link rel="stylesheet" media="screen" href="/static/new_assets/vendor/lightgallery.js/dist/css/lightgallery.min.css"/>
+    <link rel="stylesheet" media="screen" href="/static/new_assets/vendor/tiny-slider/dist/tiny-slider.css"/>
+
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="/static/new_assets/css/demo/creative-agency/theme.min.css">
+
+
+
+  <!-- Body-->
+
+
+    <!-- Page loading spinner-->
+
+    <!-- Main content-->
+    <!-- Wraps everything except footer to push footer to the bottom of the page if there is little content -->
+    <main class="cs-page-wrapper position-relative">
+
+
+      <!-- Hero-->
+      <section class="jarallax d-flex align-items-stretch min-vh-100 bg-dark overflow-hidden pt-5" style = "color:#4d5ec1;" data-jarallax data-speed="0.5">
+        <div class="jarallax-img" style="background-image: url(/static/new_assets/img/creative-agency/home/hero-bg.jpg);"></div>
+        <div class="container d-flex flex-column justify-content-around pt-5 pt-sm-4 pb-5">
+          <div class="row mt-md-5 pt-sm-5">
+            <div class="col-lg-4 col-md-5 order-md-1 order-2 text-md-left text-center">
+              <div class="mt-lg-5 mb-4">
+                <a href="https://www.youtube.com/watch?v=4gAtw4qSF2U" class="cs-video-btn mr-3" data-gallery-video data-sub-html="<h6 class='font-size-sm text-light'>Agency Showreel</h6>"></a>
+                <span class="font-size-sm font-weight-bold text-light">Play Showreel</span>
+              </div>
+              <h1 class="mb-lg-5 mb-4 pb-2 display-1 text-light">Hey, we’re CREATE<span class="text-primary">X</span></h1>
+              <a href="#portfolio" class="mb-lg-0 mb-5 btn btn-lg btn-primary btn-pill" data-scroll>View showcase</a>
+            </div>
+            <div class="col-lg-8 col-md-7 order-md-2 order-1">
+              <div class="row justify-content-center">
+                <div class="col-sm-8 col-md-12">
+                  <div class="cs-parallax mb-md-0 mb-4">
+                    <div class="cs-parallax-layer" data-depth="-0.09" style="z-index: 3;">
+                      <img src="/static/img/logo/001.png" alt="액조디아1">
+                    </div>
+                    <div class="cs-parallax-layer" data-depth="-0.35" style="z-index: 4;">
+                      <img src="/static/img/logo/002.png" alt="액조디아2">
+                    </div>
+                    <div class="cs-parallax-layer" data-depth="-0.25" style="z-index: 2;">
+                      <img src="/static/img/logo/003.png" alt="액조디아3">
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row d-md-flex d-none align-items-center mt-lg-n5">
+            <div class="col-4">
+              <ul class="pl-4 list-unstyled border-left border-primary font-weight-bold text-muted text-uppercase lead">
+                <li>UX / UI</li>
+                <li>MOBILE &amp; WEB-TECH</li>
+                <li>BRANDING</li>
+                <li>SEO</li>
+              </ul>
+            </div>
+            <div class="col-4">
+              <a href="#mission" data-scroll class="d-flex align-items-center justify-content-center font-size-sm font-weight-bold text-light text-decoration-none">
+                <i class="cxi-arrow-down h4 mr-2 mb-0 text-light"></i>
+                Scroll down
+              </a>
+            </div>
+            <div class="col-4">
+              <div class="text-right">
+                <span class="ml-auto font-weight-bold text-light">
+                  12+ <br>
+                  awards
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Mission -->
+      <section id="mission" class="container py-lg-6 py-5 my-3 mt-lg-1 mb-sm-5">
+        <h3 class="h6 mb-3 pb-1 text-uppercase">What we do</h3>
+        <div class="row">
+          <div class="col-lg-7 col-md-6">
+            <p class="h3 mb-md-0 mb-3 pb-md-0 pb-1 line-height-base">We are a full-service creative studio. We generate innovative ideas, purposeful content and unique visual languages to empower meaningful interactions with audiences, brands, products and purposes.</p>
+          </div>
+          <div class="col-lg-5 col-md-6 overflow-hidden">
+            <div class="d-flex justify-content-md-end flex-sm-nowrap flex-wrap mx-n4">
+              <div class="mb-sm-0 mb-4 px-4">
+                <span class="d-inline-block pb-1 font-size-sm text-dark text-nowrap">Highlighted in</span>
+                <img class="d-block mt-md-3 mt-2" src="/static/new_assets/img/creative-agency/logo/forbes.svg" alt="Brand logo">
+              </div>
+              <div class="mb-sm-0 mb-4 px-4">
+                <span class="d-inline-block pb-1 font-size-sm text-dark text-nowrap">Top rated agency</span>
+                <img class="d-block mt-md-3 mt-2" src="/static/new_assets/img/creative-agency/logo/upwork.svg" alt="Brand logo">
+              </div>
+              <div class="mb-sm-0 mb-4 px-4">
+                <span class="d-inline-block pb-1 font-size-sm text-dark text-nowrap">5 stars only</span>
+                <img class="d-block mt-md-3 mt-2" src="/static/new_assets/img/creative-agency/logo/clutch.svg" alt="Brand logo">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Approach -->
+      <section class="pt-lg-3 pb-4">
+        <div class="container">
+          <h3 class="h6 mb-2 text-uppercase">Our approach</h3>
+          <h2 class="h1 mb-lg-5 mb-4">That’s how we do it</h2>
+        </div>
+
+        <!-- Carousel -->
+        <div class="container px-0">
+          <div class="cs-carousel cs-nav-outside mt-n4 ml-lg-n5">
+            <div class="cs-carousel-inner pt-4 pl-lg-5" data-carousel-options='{
+              "loop": false,
+              "controls": false,
+              "responsive": {
+                "0": {
+                  "items": 1
+                },
+                "576": {
+                  "items": 2
+                },
+                "768": {
+                  "items": 3
+                },
+                "992": {
+                  "items": 4
+                }
+              }
+            }'>
+
+              <!-- Horizontal step item -->
+              <div class="cs-step pt-2 px-3">
+                <div class="cs-step-head mb-3">
+                  <span class="cs-step-indicator">01</span>
+                  <span class="cs-step-line"></span>
+                </div>
+                <div class="cs-step-body">
+                  <h3 class="h5 mb-2">Research &amp; Analysis</h3>
+                  <p class="mb-0 text-muted">Culpa nostrud commodo ea consequat aliquip reprehenderit. Veniam velit nostrud aliquip sunt.</p>
+                </div>
+              </div>
+
+              <!-- Horizontal step item -->
+              <div class="cs-step pt-2 px-3">
+                <div class="cs-step-head mb-3">
+                  <span class="cs-step-indicator">02</span>
+                  <span class="cs-step-line"></span>
+                </div>
+                <div class="cs-step-body">
+                  <h3 class="h5 mb-2">Prototyping</h3>
+                  <p class="mb-0 text-muted">Anim reprehenderit sint voluptate exercitation adipisicing laborum adipisicing. Minim ad tempor.</p>
+                </div>
+              </div>
+
+              <!-- Horizontal step item -->
+              <div class="cs-step pt-2 px-3">
+                <div class="cs-step-head mb-3">
+                  <span class="cs-step-indicator">03</span>
+                  <span class="cs-step-line"></span>
+                </div>
+                <div class="cs-step-body">
+                  <h3 class="h5 mb-2">Pixel-perfect UI Design</h3>
+                  <p class="mb-0 text-muted">Sit veniam aute dolore adipisicing nulla sit culpa. Minim mollit voluptate ullamco proident ea ad.</p>
+                </div>
+              </div>
+
+              <!-- Horizontal step item -->
+              <div class="cs-step pt-2 px-3">
+                <div class="cs-step-head mb-3">
+                  <span class="cs-step-indicator">04</span>
+                </div>
+                <div class="cs-step-body">
+                  <h3 class="h5 mb-2">Development (Coding)</h3>
+                  <p class="mb-0 text-muted">Adipisicing esse aliqua aliquip qui amet. Aute eiusmod dolore dolore et ad et veniamad.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Services -->
+      <section class="container py-lg-6 mb-md-3 mb-lg-0 py-5">
+        <h3 class="h6 mb-2 text-uppercase">Capabilities</h3>
+        <h2 class="h1 mb-lg-4 mb-2 pb-3">Our services</h2>
+        <div class="row align-items-center">
+          <div class="col-md-5 order-md-1 order-2">
+
+            <!-- Accordion made of cards -->
+            <div class="accordion" id="accordionServices">
+
+              <!-- Card -->
+              <div class="">
+                <div class="card-header pt-0" id="servicesHeadingOne">
+                  <h3 class="accordion-heading">
+                    <a href="#servicesCollapseOne" role="button" data-toggle="collapse" data-binded-content="#identity" aria-expanded="false" aria-controls="servicesCollapseOne">
+                      <span class="accordion-indicator"></span>
+                      Identity Design &amp; Illustration
+                    </a>
+                  </h3>
+                </div>
+                <div class="collapse show" id="servicesCollapseOne" aria-labelledby="servicesHeadingOne" data-parent="#accordionServices">
+                  <div class="card-body">
+                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card -->
+              <div class="">
+                <div class="card-header" id="servicesHeadingTwo">
+                  <h3 class="accordion-heading">
+                    <a href="#servicesCollapseTwo" role="button" data-toggle="collapse" data-binded-content="#web" aria-expanded="false" aria-controls="servicesHeadingTwo" class="collapsed">
+                      <span class="accordion-indicator"></span>
+                      UX / UI Design<br>
+                      Web &amp; Mobile Design
+                    </a>
+                  </h3>
+                </div>
+                <div class="collapse" id="servicesCollapseTwo" aria-labelledby="servicesHeadingTwo" data-parent="#accordionServices">
+                  <div class="card-body">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore porro molestiae nihil ad aut atque tempora tempore fugiat ipsum aspernatur officiis, obcaecati modi excepturi, aliquid reprehenderit? Sint ullam magni molestias?
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card -->
+              <div class="">
+                <div class="card-header" id="servicesHeadingThree">
+                  <h3 class="accordion-heading">
+                    <a href="#servicesCollapseThree" role="button" data-toggle="collapse" data-binded-content="#photography" aria-expanded="false" aria-controls="servicesCollapseThree" class="collapsed">
+                      <span class="accordion-indicator"></span>
+                      Photography &amp; Video Production
+                    </a>
+                  </h3>
+                </div>
+                <div class="collapse" id="servicesCollapseThree" aria-labelledby="servicesHeadingThree" data-parent="#accordionServices">
+                  <div class="card-body">
+                    Doloribus quo sed beatae provident placeat voluptate corporis eligendi maxime laborum reprehenderit voluptatibus obcaecati recusandae illum, delectus ipsum ab vitae cum excepturi? Illo ad id mollitia, sit obcaecati qui laborum iste minima deserunt consequatur sunt neque aliquid, error aspernatur!
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-7 order-md-2 order-1 ml-auto">
+
+            <!-- Images binded to accordion -->
+            <div class="cs-binded-content mb-4">
+              <div id="identity" class="cs-binded-item active">
+                <img class="d-block" src="/static/new_assets/img/creative-agency/home/services/01.svg" alt="Identity Design &amp; Illustration">
+              </div>
+              <div id="web" class="cs-binded-item">
+                <img class="d-block" src="/static/new_assets/img/creative-agency/home/services/02.svg" alt="UX / UI Design">
+              </div>
+              <div id="photography" class="cs-binded-item">
+                <img class="d-block" src="/static/new_assets/img/creative-agency/home/services/03.svg" alt="Photography &amp; Video Production">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Portfolio: Featured projects -->
+      <section id="portfolio" class="bg-secondary py-lg-6 py-5">
+        <div class="container py-3 py-lg-0">
+          <h3 class="h6 mb-2 text-uppercase">Enjoy our latest projects</h3>
+          <div class="mb-lg-5 mb-4 d-flex justify-content-between">
+            <h2 class="h1 mb-0">Selected work</h2>
+            <div class="tns-custom-controls cs-controls-inverse mb-md-n4" id="tns-portfolio-controls" tabindex="0">
+              <button type="button" data-controls="prev" tabindex="-1">
+                <i class="cxi-arrow-left"></i>
+              </button>
+              <button type="button" data-controls="next" tabindex="-1">
+                <i class="cxi-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="container px-0">
+
+          <!-- Carousel  -->
+          <div class="cs-carousel mt-n2 mb-lg-5 mb-4">
+            <div class="cs-carousel-inner" data-carousel-options='{
+              "nav": false,
+              "controlsContainer": "#tns-portfolio-controls",
+              "responsive": {
+                "0": {
+                  "items": 1
+                },
+                "576": {
+                  "items": 2
+                },
+                "768": {
+                  "items": 3
+                }
+              }
+            }'>
+              <div class="rounded">
+                <a class="cs-portfolio-card-scale text-decoration-none mt-3 mx-3" href="portfolio-single-v1.html">
+                  <div class="cs-portfolio-card-img">
+                    <img src="/static/new_assets/img/creative-agency/portfolio/01.jpg" alt="Card image">
+                  </div>
+                  <div class="cs-portfolio-card-body">
+                    <h3 class="cs-portfolio-card-title">Pink Fur Light Bulb Creative Concept</h3>
+                    <span class="font-size-sm text-muted">Web Design</span>
+                  </div>
+                </a>
+              </div>
+              <div class="rounded">
+                <a class="cs-portfolio-card-scale text-decoration-none mt-3 mx-3" href="portfolio-single-v2.html">
+                  <div class="cs-portfolio-card-img">
+                    <img src="/static/new_assets/img/creative-agency/portfolio/02.jpg" alt="Card image">
+                  </div>
+                  <div class="cs-portfolio-card-body">
+                    <h3 class="cs-portfolio-card-title">Minimalistic Mobile Interface</h3>
+                    <span class="font-size-sm text-muted">Mobile Apps</span>
+                  </div>
+                </a>
+              </div>
+              <div class="rounded">
+                <a class="cs-portfolio-card-scale text-decoration-none mt-3 mx-3" href="portfolio-single-v1.html">
+                  <div class="cs-portfolio-card-img">
+                    <img src="/static/new_assets/img/creative-agency/portfolio/03.jpg" alt="Card image">
+                  </div>
+                  <div class="cs-portfolio-card-body">
+                    <h3 class="cs-portfolio-card-title">Hardcover Book Concept</h3>
+                    <span class="font-size-sm text-muted">Branding</span>
+                  </div>
+                </a>
+              </div>
+              <div class="rounded">
+                <a class="cs-portfolio-card-scale text-decoration-none mt-3 mx-3" href="portfolio-single-v2.html">
+                  <div class="cs-portfolio-card-img">
+                    <img src="/static/new_assets/img/creative-agency/portfolio/04.jpg" alt="Card image">
+                  </div>
+                  <div class="cs-portfolio-card-body">
+                    <h3 class="cs-portfolio-card-title">Mobile App Icon Design</h3>
+                    <span class="font-size-sm text-muted">Mobile App Design</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center align-items-center flex-md-row flex-column px-3">
+            <h3 class="mb-md-0">Fallen in love with our works?</h3>
+            <a href="portfolio.html" class="ml-md-4 btn btn-lg btn-primary btn-pill">View portfolio</a>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Brands -->
+      <section class="container mt-md-4 py-lg-6 pt-5 pb-sm-5 pb-4 px-0">
+        <div class="cs-carousel cs-nav-outside">
+          <div class="cs-carousel-inner" data-carousel-options='{
+            "nav": false,
+            "controls": false,
+            "autoplay": true,
+            "autoplayTimeout": 4000,
+            "responsive": {
+              "0": {
+                "items": 2
+              },
+              "576": {
+                "items": 3
+              },
+              "768": {
+                "items": 4
+              },
+              "992": {
+                "items": 5
+              },
+              "1200": {
+                "items": 6
+              }
+            }
+          }'>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/coca-cola.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/coca-cola-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/bassett-furniture.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/bassett-furniture-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/albatron.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/albatron-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/wisecat.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/wisecat-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/curtis.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/curtis-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/gabor.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/gabor-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/huggies.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/huggies-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/lovato.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/lovato-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/xrite.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/xrite-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/rainx.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/rainx-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/soundcloud.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/soundcloud-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+            <div class="px-3 text-center">
+              <a href="#" class="cs-swap-image">
+                <img src="/static/new_assets/img/creative-agency/logo/exxon.svg" class="cs-swap-to" width="120" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/exxon-g.svg" class="cs-swap-from" width="120" alt="Brand logo">
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Testimonials -->
+      <section class="container pb-5 pb-lg-4">
+        <div class="row">
+          <div class="col-md-6">
+            <h3 class="h6 mb-2 text-uppercase">Testimonials</h3>
+            <h2 class="h1 mb-lg-5 mb-4 pb-2">What they say about us</h2>
+
+            <!-- Carousel custom controls -->
+            <div class="tns-custom-controls cs-controls-inverse d-md-flex d-none mb-n5 mx-0" id="tns-custom-controls" tabindex="0">
+              <button class="mb-n2" type="button" data-controls="prev" tabindex="-1">
+                <i class="cxi-arrow-left"></i>
+              </button>
+              <button class="mb-n2" type="button" data-controls="next" tabindex="-1">
+                <i class="cxi-arrow-right"></i>
+              </button>
+            </div>
+
+            <!-- Carousel -->
+            <div class="cs-carousel cs-nav-outside">
+              <div class="cs-carousel-inner" data-carousel-options='{
+                "gutter": 15,
+                "controlsContainer": "#tns-custom-controls",
+                "autoHeight": true,
+                "responsive": {
+                  "0": {
+                    "nav": true
+                  },
+                  "768": {
+                    "nav": false
+                  }
+                }
+              }'>
+
+                <!-- Testimonial -->
+                <blockquote>
+                  <img class="mb-4 rounded-circle" src="/static/new_assets/img/creative-agency/testimonials/01.jpg" width="72" alt="Author">
+                  <p>Quae, recusandae! Rem cumque a, dolorum error quis blanditiis exercitationem culpa enim harum! Praesentium repellendus placeat deleniti! Maxime deserunt inventore nihil magnam vero iure amet dolores enim soluta sint accusamus.</p>
+                  <footer>
+                    <h3 class="h6 mb-0">Courtney Alexander</h3>
+                    <span class="font-size-sm text-muted">Position, Company</span>
+                  </footer>
+                </blockquote>
+
+                <!-- Testimonial -->
+                <blockquote>
+                  <img class="mb-4 rounded-circle" src="/static/new_assets/img/creative-agency/testimonials/02.jpg" width="72" alt="Author">
+                  <p>Eveniet molestias, iste excepturi optio libero aspernatur eius, eos nostrum sunt magnam ipsa impedit dignissimos est expedita, amet quidem et quod. Expedita porro doloremque sit at fugiat in animi obcaecati repellendus, quaerat quo soluta quisquam adipisci odit error repudiandae dolorum accusamus vel?</p>
+                  <footer>
+                    <h3 class="h6 mb-0">Eleanor Pena</h3>
+                    <span class="font-size-sm text-muted">Position, Company</span>
+                  </footer>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+
+          <!-- Image -->
+          <div class="col-lg-5 col-md-6 d-md-block d-none ml-lg-auto">
+            <img class="mb-lg-n6 rounded" src="/static/new_assets/img/creative-agency/testimonials/03.jpg" alt="Testimonials">
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Blog (Recent posts) -->
+      <section class="bg-secondary pt-lg-6 py-5">
+        <div class="container pt-3 pt-lg-0">
+          <h3 class="h6 mb-2 text-uppercase">Our blog</h3>
+          <h2 class="h1 mb-lg-5 mb-4 pb-2 d-flex align-items-center justify-content-between">
+            Recent news
+            <a href="blog.html" class="btn btn-outline-primary btn-pill">View blog</a>
+          </h2>
+          <div class="row">
+
+            <!-- Post card: image fade in -->
+            <div class="col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3">
+              <article class="cs-image-fade card card-hover box-shadow" style="background-image: url(/static/new_assets/img/creative-agency/blog/recent/01.jpg);">
+                <div class="cs-image-inner d-flex flex-column justify-content-between h-100 p-3">
+                  <div class="card-header border-0 pb-0">
+                    <ul class="nav nav-muted mb-2 pb-1">
+                      <li class="nav-item mr-2">
+                        <a class="cs-inner-text nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal" href="#">
+                          Creativity
+                        </a>
+                        <span class="cs-inner-text text-border px-1">|</span>
+                      </li>
+                      <li class="nav-item mr-2">
+                        <a class="cs-inner-text nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal" href="#">
+                          April 9, 2020
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-body pt-0" style="min-height: 15rem;">
+                    <h3 class="h5 mb-2 pb-1">
+                      <a class="cs-inner-text nav-link" href="blog-single.html">
+                        Definitive Guide to Make a Daily More Productive Working Flow.
+                      </a>
+                    </h3>
+                  </div>
+                  <div class="card-footer border-0">
+                    <div class="h6 mb-0 text-right">
+                      <a class="cs-inner-text nav-link py-3" href="blog-single.html">
+                        Read more
+                      </a>
+                      <i class="cs-inner-text cxi-arrow-right align-middle h5 mb-0 ml-2 card-text"></i>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- Post card: image fade in -->
+            <div class="col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3">
+              <article class="cs-image-fade card card-hover box-shadow" style="background-image: url(/static/new_assets/img/creative-agency/blog/recent/02.jpg);">
+                <div class="cs-image-inner d-flex flex-column justify-content-between h-100 p-3">
+                  <div class="card-header border-0 pb-0">
+                    <ul class="nav nav-muted mb-2 pb-1">
+                      <li class="nav-item mr-2">
+                        <a class="cs-inner-text nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal" href="#">
+                          Design
+                        </a>
+                        <span class="cs-inner-text text-border px-1">|</span>
+                      </li>
+                      <li class="nav-item mr-2">
+                        <a class="cs-inner-text nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal" href="#">
+                          April 9, 2020
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-body pt-0" style="min-height: 15rem;">
+                    <h3 class="h5 mb-2 pb-1">
+                      <a class="cs-inner-text nav-link" href="blog-single.html">
+                        Outdoor Work: a Designer’s Checklist for Every UX Project..
+                      </a>
+                    </h3>
+                  </div>
+                  <div class="card-footer border-0">
+                    <div class="h6 mb-0 text-right">
+                      <a class="cs-inner-text nav-link py-3" href="blog-single.html">
+                        Read more
+                      </a>
+                      <i class="cs-inner-text cxi-arrow-right align-middle h5 mb-0 ml-2 card-text"></i>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- Post card: image fade in -->
+            <div class="col-lg-4 col-sm-6 d-sm-none d-lg-block mb-sm-grid-gutter mb-3">
+              <article class="cs-image-fade card card-hover box-shadow" style="background-image: url(/static/new_assets/img/creative-agency/blog/recent/03.jpg);">
+                <div class="cs-image-inner d-flex flex-column justify-content-between h-100 p-3">
+                  <div class="card-header border-0 pb-0">
+                    <ul class="nav nav-muted mb-2 pb-1">
+                      <li class="nav-item mr-2">
+                        <a class="cs-inner-text nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal" href="#">
+                          Creativity
+                        </a>
+                        <span class="cs-inner-text text-border px-1">|</span>
+                      </li>
+                      <li class="nav-item mr-2">
+                        <a class="cs-inner-text nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal" href="#">
+                          April 9, 2020
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-body pt-0" style="min-height: 15rem;">
+                    <h3 class="h5 mb-2 pb-1">
+                      <a class="cs-inner-text nav-link" href="blog-single.html">
+                        Creativo Para Jóvenes: a Designer’s UI/UX Complete Checklist.
+                      </a>
+                    </h3>
+                  </div>
+                  <div class="card-footer border-0">
+                    <div class="h6 mb-0 text-right">
+                      <a class="cs-inner-text nav-link py-3" href="blog-single.html">
+                        Read more
+                      </a>
+                      <i class="cs-inner-text cxi-arrow-right align-middle h5 mb-0 ml-2 card-text"></i>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Achievements -->
+      <section class="container pt-lg-6 py-5 mt-4 mt-lg-3">
+        <h3 class="h6 mb-2 text-uppercase">Our achievements</h3>
+        <div class="row">
+          <div class="col-xl-4 col-lg-5">
+            <h2 class="h1 mb-lg-5 mb-4">The awards won by our studio</h2>
+          </div>
+          <div class="col-lg-7 mt-2 d-flex flex-sm-row flex-column align-items-start justify-content-sm-between flex-lg-nowrap flex-wrap ml-auto">
+            <div class="d-flex flex-sm-column justify-content-center mb-lg-0 mb-3 px-3">
+              <a href="#" class="cs-swap-image mr-sm-0 mr-3 mb-3">
+                <img src="/static/new_assets/img/creative-agency/logo/webby.svg" class="cs-swap-to" width="60" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/webby-g.svg" class="cs-swap-from" width="60" alt="Brand logo">
+              </a>
+              <span class="d-block pt-1 font-size-sm text-dark text-nowrap">4x mobile of the day</span>
+            </div>
+            <div class="d-flex flex-sm-column justify-content-center mb-lg-0 mb-3 px-3">
+              <a href="#" class="cs-swap-image mr-sm-0 mr-3 mb-3">
+                <img src="/static/new_assets/img/creative-agency/logo/cssda.svg" class="cs-swap-to" width="60" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/cssda-g.svg" class="cs-swap-from" width="60" alt="Brand logo">
+              </a>
+              <span class="d-block pt-1 font-size-sm text-dark text-nowrap">1x Kudos</span>
+            </div>
+            <div class="d-flex flex-sm-column justify-content-center mb-lg-0 mb-3 px-3">
+              <a href="#" class="cs-swap-image mr-sm-0 mr-3 mb-3">
+                <img src="/static/new_assets/img/creative-agency/logo/awwwards.svg" class="cs-swap-to" width="60" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/awwwards-g.svg" class="cs-swap-from" width="60" alt="Brand logo">
+              </a>
+              <span class="d-block pt-1 font-size-sm text-dark text-nowrap">3x website of the day</span>
+            </div>
+            <div class="d-flex flex-sm-column justify-content-center mb-lg-0 mb-3 px-3">
+              <a href="#" class="cs-swap-image mr-sm-0 mr-3 mb-3">
+                <img src="/static/new_assets/img/creative-agency/logo/fwa.svg" class="cs-swap-to" width="60" alt="Brand logo hover">
+                <img src="/static/new_assets/img/creative-agency/logo/fwa-g.svg" class="cs-swap-from" width="60" alt="Brand logo">
+              </a>
+              <span class="d-block pt-1 font-size-sm text-dark text-nowrap">2x best website</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Team -->
+      <section class="container pt-lg-6 pt-sm-5 pb-lg-5 pb-4">
+        <div class="row">
+          <div class="col-lg-4 col-sm-5 order-sm-1 order-2">
+
+            <!-- Images binded to accordion -->
+            <div class="cs-binded-content mb-4">
+              <div id="team1" class="cs-binded-item active">
+                <img class="rounded" src="/static/new_assets/img/creative-agency/home/team/01.jpg" alt="Team member">
+              </div>
+              <div id="team2" class="cs-binded-item">
+                <img class="rounded" src="/static/new_assets/img/creative-agency/home/team/02.jpg" alt="Team member">
+              </div>
+              <div id="team3" class="cs-binded-item">
+                <img class="rounded" src="/static/new_assets/img/creative-agency/home/team/03.jpg" alt="Team member">
+              </div>
+              <div id="team4" class="cs-binded-item">
+                <img class="rounded" src="/static/new_assets/img/creative-agency/home/team/04.jpg" alt="Team member">
+              </div>
+            </div>
+            <a href="about.html" class="d-lg-none d-inline-block btn-block btn btn-outline-primary btn-pill">More about us</a>
+          </div>
+          <div class="col-sm-7 order-sm-2 order-1 mb-sm-0 mb-4 ml-auto">
+            <div class="d-flex justify-content-between">
+              <div class="mr-3">
+                <h3 class="h6 mb-2 text-uppercase">Creative people are all here</h3>
+                <h2 class="h1 mb-lg-5 mb-3 pb-2">Meet our team</h2>
+              </div>
+              <div class="d-lg-block d-none">
+                <a href="about.html" class="btn btn-outline-primary btn-pill">More about us</a>
+              </div>
+            </div>
+
+            <!-- Accordion -->
+            <div class="accordion" id="accordionTeam">
+
+              <!-- Item -->
+              <div class="">
+                <div class="card-header pt-0 pb-2" id="teamHeadingOne">
+                  <h3 class="accordion-heading h5">
+                    <a href="#teamCollapseOne" role="button" data-toggle="collapse" data-binded-content="#team1" aria-expanded="true" aria-controls="teamCollapseOne">
+                      <span class="accordion-indicator mr-3"></span>
+                      Shawn Edwards
+                    </a>
+                  </h3>
+                </div>
+                <div class="collapse show" id="teamCollapseOne" aria-labelledby="teamHeadingOne" data-parent="#accordionTeam">
+                  <div class="card-body ml-n2">
+                    <h4 class="h6 mb-2 pb-1 font-weight-normal text-muted">Co-founder and CEO</h4>
+                    Eleifend adipiscing lacus nullam malesuada ullamcorper non pharetrainteret velit. Integer pellentesque tortor amet sociis. Nibh ultrices etiam enim.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item -->
+              <div class="">
+                <div class="card-header py-2" id="teamHeadingTwo">
+                  <h3 class="accordion-heading h5">
+                    <a href="#teamCollapseTwo" role="button" data-toggle="collapse" data-binded-content="#team2" aria-expanded="false" aria-controls="teamCollapseTwo" class="collapsed">
+                      <span class="accordion-indicator mr-3"></span>
+                      Theresa Cooper
+                    </a>
+                  </h3>
+                </div>
+                <div class="collapse" id="teamCollapseTwo" aria-labelledby="teamHeadingTwo" data-parent="#accordionTeam">
+                  <div class="card-body ml-n2">
+                    <h4 class="h6 mb-2 pb-1 font-weight-normal text-muted">Project Manager</h4>
+                    Eleifend adipiscing lacus nullam malesuada ullamcorper non pharetrainteret velit. Integer pellentesque tortor amet sociis. Nibh ultrices etiam enim.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item -->
+              <div class="">
+                <div class="card-header py-2" id="teamHeadingThree">
+                  <h3 class="accordion-heading h5">
+                    <a href="#teamCollapseThree" role="button" data-toggle="collapse" data-binded-content="#team3" aria-expanded="false" aria-controls="teamCollapseThree" class="collapsed">
+                      <span class="accordion-indicator mr-3"></span>
+                      Debra Warren
+                    </a>
+                  </h3>
+                </div>
+                <div class="collapse" id="teamCollapseThree" aria-labelledby="teamHeadingThree" data-parent="#accordionTeam">
+                  <div class="card-body ml-n2">
+                    <h4 class="h6 mb-2 pb-1 font-weight-normal text-muted">UI/UX Designer</h4>
+                    Eleifend adipiscing lacus nullam malesuada ullamcorper non pharetrainteret velit. Integer pellentesque tortor amet sociis. Nibh ultrices etiam enim.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item -->
+              <div class="">
+                <div class="card-header py-2" id="teamHeadingFour">
+                  <h3 class="accordion-heading h5">
+                    <a href="#teamCollapseFour" role="button" data-toggle="collapse" data-binded-content="#team4" aria-expanded="false" aria-controls="teamCollapseFour" class="collapsed">
+                      <span class="accordion-indicator mr-3"></span>
+                      Dustin Williamson
+                    </a>
+                  </h3>
+                </div>
+                <div class="collapse" id="teamCollapseFour" aria-labelledby="teamHeadingFour" data-parent="#accordionTeam">
+                  <div class="card-body ml-n2">
+                    <h4 class="h6 mb-2 pb-1 font-weight-normal text-muted">Motion Designer</h4>
+                    Eleifend adipiscing lacus nullam malesuada ullamcorper non pharetrainteret velit. Integer pellentesque tortor amet sociis. Nibh ultrices etiam enim.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Contact links -->
+      <section class="container mb-4 mb-sm-5 mt-md-4 mt-lg-0 px-3 py-lg-6 py-5">
+        <h2 class="h3 mb-5 pb-2 text-center">Let's build something amazing together!</h2>
+        <div class="row justify-content-center px-2 px-sm-0">
+          <div class="col-md-3 col-sm-4 col px-2 px-sm-3">
+            <h3 class="h6 pb-lg-3 pb-2 text-uppercase text-muted text-center">Follow us</h3>
+            <a class="d-block" href="#">
+              <img class="rounded" src="/static/new_assets/img/creative-agency/logo/block-dribbble.svg" alt="Dribble">
+            </a>
+            <a class="mt-sm-4 mt-3 d-block" href="#">
+              <img class="rounded" src="/static/new_assets/img/creative-agency/logo/block-behance.svg" alt="Behance">
+            </a>
+          </div>
+          <div class="divider-vertical d-sm-block d-none offset-sm-1"></div>
+          <div class="col-md-3 col-sm-4 col offset-sm-1 px-2 px-sm-3">
+            <h3 class="h6 pb-lg-3 pb-2 text-uppercase text-muted text-center">Get in touch</h3>
+            <a class="d-block" href="#">
+              <img class="rounded" src="/static/new_assets/img/creative-agency/logo/block-upwork.svg" alt="Upwork">
+            </a>
+            <a class="mt-sm-4 mt-3 d-block" href="mailto:hello@example.com">
+              <img class="rounded" src="/static/new_assets/img/creative-agency/logo/block-email.svg" alt="Email">
+            </a>
+          </div>
+        </div>
+      </section>
+    </main><!-- / Main content: .cs-page-wrapper -->
+
+
+
+    <!-- Vendor scripts: js libraries and plugins-->
+    <script src="/static/new_assets/vendor/jquery/dist/jquery.slim.min.js"></script>
+    <script src="/static/new_assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/new_assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="/static/new_assets/vendor/jarallax/dist/jarallax.min.js"></script>
+    <script src="/static/new_assets/vendor/lightgallery.js/dist/js/lightgallery.min.js"></script>
+    <script src="/static/new_assets/vendor/lg-video.js/dist/lg-video.min.js"></script>
+    <script src="/static/new_assets/vendor/parallax-js/dist/parallax.min.js"></script>
+    <script src="/static/new_assets/vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+
+    <!-- Main theme script-->
+    <script src="/static/new_assets/js/theme.min.js"></script>
+{% endblock content %}

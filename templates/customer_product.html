@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block head_title %}
+- {{object.title}}
+{% endblock %}
+
+
+{% block content %}
+
+<main class="mt-5 pt-4">
+  <div class="container dark-grey-text mt-5">
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+    <p align​="middle">  <div class="col-md-6 mb-4">
+<video width="500" height="500" controls autoplay>
+<source src="{{object.video.url}}" type="video/mp4">
+</video>
+    </div>
+    </p>
+</div> </div>
+
+</main>
+
+<iframe src="https://player.vimeo.com/video/566857037" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+
+{% endblock content %}

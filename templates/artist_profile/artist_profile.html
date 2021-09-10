@@ -1,0 +1,409 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+- 아티스트 모음
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" media="screen" href="/static/new_assets/css/demo/online-courses/theme.min.css">
+    <script src="/static/new_assets/vendor/jquery/dist/jquery.slim.min.js"></script>
+    <script src="/static/new_assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/new_assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="/static/new_assets/vendor/jarallax/dist/jarallax.min.js"></script>
+    <script src="/static/new_assets/vendor/simplebar/dist/simplebar.min.js"></script>
+    <script src="/static/new_assets/vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+    <script src="/static/new_assets/vendor/mixitup/dist/mixitup.min.js"></script>
+
+    <!-- Main theme script-->
+      <body>
+    <main class="cs-page-wrapper position-relative">
+
+      <!-- Courses grid-->
+      <section class="mt-4 pt-lg-5 pt-4 pb-lg-6 pb-5 bg-no-repeat bg-size-contain bg-position-top" style="background-image: url(/static/new_assets/img/online-courses/courses/shape.svg);">
+        <div class="container py-2">
+
+          <!-- Filterable grid container. IMPORTANT: it should wrap filters/sorters and target grid of items in order for plugin to work! -->
+          <div data-filter-grid>
+            <h3 class="h6 mb-2 text-uppercase text-center"><img src = "/static/img/font.png" width = "150" height ="50"> 에서만 만날 수 있는</h3>
+            <!--<p align="center"><img src="/static/img/classic_logo.png" width = "200" height = "200"></p>-->
+            <h2 class="h1 mb-lg-5 pb-md-2 text-center" style = "color:#8157cb">Artist</h2>
+            <div class="row mb-lg-5 mb-4 pb-md-2">
+              <div class="col-sm-8">
+                <div data-simplebar data-simplebar-auto-hide="false">
+
+                  <!-- Filter navs -->
+                  <ul class="nav nav-tabs nav-fill flex-nowrap mb-3 text-nowrap">
+                    <li class="nav-item mb-0">
+                      <span class="nav-link active" data-filter="all">
+                        All
+
+                      </span>
+                    </li>
+                    <li class="nav-item mb-0">
+                      <span class="nav-link" data-filter=".H">
+                        현악기
+
+                      </span>
+                    </li>
+                    <li class="nav-item mb-0">
+                      <span class="nav-link" data-filter=".G">
+                        관악기
+
+                      </span>
+                    </li>
+                    <li class="nav-item mb-0">
+                      <span class="nav-link" data-filter=".T">
+                        타악기
+
+                      </span>
+                    </li>
+                    <li class="nav-item mb-0">
+                      <span class="nav-link" data-filter=".ETC">
+                        기타
+
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Search input -->
+              <div class="col-lg-3 col-sm-4 offset-lg-1 mt-sm-0 mt-4">
+<!--                <div class="input-group-overlay form-group mb-0">-->
+<!--                  <input class="form-control appended-form-control" type="text" id="search" onkeyup="filter()" placeholder="Search courses">-->
+<!--                  <div class="input-group-append-overlay">-->
+<!--                    <span class="input-group-text">-->
+<!--                      <button class="btn btn-link px-0" type="button">-->
+<!--                        <i class="cxi-search mt-n1 text-muted"></i>-->
+<!--                      </button>-->
+<!--                    </span>-->
+<!--                  </div>-->
+<!--                </div>-->
+
+
+                  <!-- Widget: Tags -->
+                  <div class="cs-widget">
+                    <!-- Pilled tag -->
+                      {% if mdpick == null %}
+                      <a class="cs-tag cs-tag-pill" href="#">#All</a>
+                      {% else %}
+                      <a class="cs-tag cs-tag-pill" href="#">#{{mdpick}}</a>
+                      {% endif %}
+                  </div>
+
+              </div>
+
+            </div>
+
+
+
+
+
+
+
+            <!-- Filterable grid of items -->
+            <div class="row">
+
+              {% for artist in object_list%}
+              {% if artist.user.is_staff %}
+
+              <!-- Item -->
+              <div class="cs-grid-item {{artist.instrument}} col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3">
+                <article class="cs-image-scale card card-hover box-shadow h-100">
+                  <a class="cs-image-inner card-header p-0 border-0 card-image-top" href="{{ artist.get_absolute_url }}">
+                    <img src="{{ artist.image.url }}" alt="{{artist.user}}">
+                  </a>
+                  <div class="card-body pb-1">
+
+                    {% if artist.instrument == "H"%}
+                    <span class="badge badge-success mb-3">현악기</span>
+                    {% elif artist.instrument == "G"%}
+                    <span class="badge badge-success mb-3">관악기</span>
+                    {% elif artist.instrument == "T"%}
+                    <span class="badge badge-success mb-3">타악기</span>
+                    {% elif artist.instrument == "ETC"%}
+                    <span class="badge badge-success mb-3">기타(ETC)</span>
+                   {% endif %}
+
+
+                    <h3 class="h5 mb-2 pt-1 nav-dark">
+                      <a class="nav-link" href="{{ artist.get_absolute_url }}">{{artist.user}}</a>
+                    </h3>
+                  </div>
+                  <div class="card-footer pt-2 pb-4 border-0">
+                    <div class="text-muted">
+                      <span class="font-weight-bold text-primary">언제 시작하면 좋을까요?</span>
+                      <span class="text-border px-1">|</span>
+                      PLAYPLZ
+                      <span class="text-border px-1">|</span>
+                      {% if request.user.userprofile in artist.followers.all %}
+                      <a href="{% url 'core:follow_userprofile' artist.pk %}?next={{ request.path|urlencode }}?mdpick={{mdpick}}">
+                      <i class="fas fa-heart fa-lg animated bounce delay-1s" style="color: red;"></i>
+                      </a>
+                      {% else %}
+                      <a href="{% url 'core:follow_userprofile' artist.pk %}?next={{ request.path|urlencode }}?mdpick={{mdpick}}">
+                      <i class="far fa-heart fa-lg animated jackInTheBox delay-1s" style="color: gray;"></i>
+                      </a>
+                      {% endif %}
+                      <span class="text-border px-1">|</span>
+                      {{ artist.followers.count }}
+                    </div>
+
+
+
+
+                  </div>
+                </article>
+              </div>
+
+              {% endif %}
+              {% endfor %}
+
+
+              <!-- Item -->
+              <div class="cs-grid-item management col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3">
+                <article class="cs-image-scale card card-hover box-shadow h-100">
+                  <a class="cs-image-inner card-header p-0 border-0 card-image-top" href="course-single.html">
+                    <img src="/static/new_assets/img/online-courses/courses/curator/02.jpg" alt="Marvin McKinney">
+                  </a>
+                  <div class="card-body pb-1">
+                    <span class="badge badge-info mb-3">Management</span>
+                    <h3 class="h5 mb-2 pt-1 nav-dark">
+                      <a class="nav-link" href="course-single.html">Product Management Fundamentals</a>
+                    </h3>
+                  </div>
+                  <div class="card-footer pt-2 pb-4 border-0">
+                    <div class="text-muted">
+                      <span class="font-weight-bold text-primary">$480</span>
+                      <span class="text-border px-1">|</span>
+                      by Marvin McKinney
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Item -->
+              <div class="cs-grid-item hr-recruiting col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3">
+                <article class="cs-image-scale card card-hover box-shadow h-100">
+                  <a class="cs-image-inner card-header p-0 border-0 card-image-top" href="course-single.html">
+                    <img src="/static/new_assets/img/online-courses/courses/curator/03.jpg" alt="Leslie Alexander Li">
+                  </a>
+                  <div class="card-body pb-1">
+                    <span class="badge badge-warning mb-3">HR &amp; Recruiting</span>
+                    <h3 class="h5 mb-2 pt-1 nav-dark">
+                      <a class="nav-link" href="course-single.html">HR  Management and Analytics</a>
+                    </h3>
+                  </div>
+                  <div class="card-footer pt-2 pb-4 border-0">
+                    <div class="text-muted">
+                      <span class="font-weight-bold text-primary">$200</span>
+                      <span class="text-border px-1">|</span>
+                      by Leslie Alexander Li
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Item -->
+              <div class="cs-grid-item marketing col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3">
+                <article class="cs-image-scale card card-hover box-shadow h-100">
+                  <a class="cs-image-inner card-header p-0 border-0 card-image-top" href="course-single.html">
+                    <img src="/static/new_assets/img/online-courses/courses/curator/04.jpg" alt="Kristin Watson">
+                  </a>
+                  <div class="card-body pb-1">
+                    <span class="badge badge-success mb-3">Marketing</span>
+                    <h3 class="h5 mb-2 pt-1 nav-dark">
+                      <a class="nav-link" href="course-single.html">Brand Management &amp; PR Communications</a>
+                    </h3>
+                  </div>
+                  <div class="card-footer pt-2 pb-4 border-0">
+                    <div class="text-muted">
+                      <span class="font-weight-bold text-primary">$530</span>
+                      <span class="text-border px-1">|</span>
+                      by Kristin Watson
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Item -->
+              <div class="cs-grid-item design col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3">
+                <article class="cs-image-scale card card-hover box-shadow h-100">
+                  <a class="cs-image-inner card-header p-0 border-0 card-image-top" href="course-single.html">
+                    <img src="/static/new_assets/img/online-courses/courses/curator/05.jpg" alt="Guy Hawkins">
+                  </a>
+                  <div class="card-body pb-1">
+                    <span class="badge text-light mb-3" style="background-color: #F52F6E;">Design</span>
+                    <h3 class="h5 mb-2 pt-1 nav-dark">
+                      <a class="nav-link" href="course-single.html">Graphic Design Basic</a>
+                    </h3>
+                  </div>
+                  <div class="card-footer pt-2 pb-4 border-0">
+                    <div class="text-muted">
+                      <span class="font-weight-bold text-primary">$500</span>
+                      <span class="text-border px-1">|</span>
+                      by Guy Hawkins
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Item -->
+              <div class="cs-grid-item management col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3">
+                <article class="cs-image-scale card card-hover box-shadow h-100">
+                  <a class="cs-image-inner card-header p-0 border-0 card-image-top" href="course-single.html">
+                    <img src="/static/new_assets/img/online-courses/courses/curator/06.jpg" alt="Dianne Russell">
+                  </a>
+                  <div class="card-body pb-1">
+                    <span class="badge badge-info mb-3">Management</span>
+                    <h3 class="h5 mb-2 pt-1 nav-dark">
+                      <a class="nav-link" href="course-single.html">Business Development Management</a>
+                    </h3>
+                  </div>
+                  <div class="card-footer pt-2 pb-4 border-0">
+                    <div class="text-muted">
+                      <span class="font-weight-bold text-primary">$400</span>
+                      <span class="text-border px-1">|</span>
+                      by Dianne Russell
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Item -->
+              <div class="cs-grid-item development col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3">
+                <article class="cs-image-scale card card-hover box-shadow h-100">
+                  <a class="cs-image-inner card-header p-0 border-0 card-image-top" href="course-single.html">
+                    <img src="/static/new_assets/img/online-courses/courses/curator/07.jpg" alt="Brooklyn Simmons">
+                  </a>
+                  <div class="card-body pb-1">
+                    <span class="badge text-light mb-3" style="background-color: #7772F1;">Development</span>
+                    <h3 class="h5 mb-2 pt-1 nav-dark">
+                      <a class="nav-link" href="course-single.html">Highload Software Architecture</a>
+                    </h3>
+                  </div>
+                  <div class="card-footer pt-2 pb-4 border-0">
+                    <div class="text-muted">
+                      <span class="font-weight-bold text-primary">$600</span>
+                      <span class="text-border px-1">|</span>
+                      by Brooklyn Simmons
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Item -->
+              <div class="cs-grid-item hr-recruiting col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3">
+                <article class="cs-image-scale card card-hover box-shadow h-100">
+                  <a class="cs-image-inner card-header p-0 border-0 card-image-top" href="course-single.html">
+                    <img src="/static/new_assets/img/online-courses/courses/curator/08.jpg" alt="Kathryn Murphy">
+                  </a>
+                  <div class="card-body pb-1">
+                    <span class="badge badge-warning mb-3">HR &amp; Recruiting</span>
+                    <h3 class="h5 mb-2 pt-1 nav-dark">
+                      <a class="nav-link" href="course-single.html">Human Resources – Selection and Recruitment</a>
+                    </h3>
+                  </div>
+                  <div class="card-footer pt-2 pb-4 border-0">
+                    <div class="text-muted">
+                      <span class="font-weight-bold text-primary">$150</span>
+                      <span class="text-border px-1">|</span>
+                      by Kathryn Murphy
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Item -->
+              <div class="cs-grid-item marketing col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3" >
+                <article class="cs-image-scale card card-hover box-shadow h-100">
+                  <a class="cs-image-inner card-header p-0 border-0 card-image-top" href="course-single.html">
+                    <img src="/static/new_assets/img/online-courses/courses/curator/09.jpg" alt="Cody Fisher">
+                  </a>
+                  <div class="card-body pb-1">
+                    <span class="badge text-light mb-3" style="background-color: #F52F6E;">Design</span>
+                    <h3 class="h5 mb-2 pt-1 nav-dark">
+                      <a class="nav-link" href="course-single.html">User Experience. Human-centered Design</a>
+                    </h3>
+                  </div>
+                  <div class="card-footer pt-2 pb-4 border-0">
+                    <div class="text-muted">
+                      <span class="font-weight-bold text-primary">$240</span>
+                      <span class="text-border px-1">|</span>
+                      by Cody Fisher
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+
+            </div>
+
+ {% if mdpick == null %}
+            {% if is_paginated %}
+                <nav class="d-flex justify-content-center wow fadeIn">
+                    <ul class="pagination pg-blue">
+
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+
+{% endif %}
+
+
+          </div>
+        </div>
+
+      </section>
+
+                 <!--Pagination-->
+
+
+
+
+     <script>
+      function filter() {
+        let search = document.getElementById("search").value.toLowerCase();
+        let listInner = document.getElementsByClassName("cs-grid-item hr-recruiting col-lg-4 col-sm-6 mb-sm-grid-gutter mb-3");
+
+        for (let i = 0; i < listInner.length; i++) {
+          name = listInner[i].getElementsByClassName("nav-link");
+          instrument = listInner[i].getElementsByClassName("badge text-light mb-3");
+          if (name[0].innerHTML.toLowerCase().indexOf(search) != -1 ||
+            instrument[0].innerHTML.toLowerCase().indexOf(search) != -1
+          ) {
+            listInner[i].style.display = "flex"
+          } else {
+            listInner[i].style.display = "none"
+          }
+        }
+      }
+    </script>
+    </main>
+ </body>
+
+{% endblock content %}
+

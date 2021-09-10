@@ -1,0 +1,19 @@
+branch-defaults:
+  default:
+    environment: Classic-dev
+environment-defaults:
+  Classic-env:
+    branch: null
+    repository: null
+global:
+  application_name: Classic
+  default_ec2_keyname: ubuntu_playplz+paze
+  default_platform: Python 3.8 running on 64bit Amazon Linux 2
+  default_region: ap-northeast-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  sc: null
+  workspace_type: Application

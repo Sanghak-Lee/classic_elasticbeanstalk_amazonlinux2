@@ -1,0 +1,87 @@
+{% extends "account/base.html" %}
+{% block content %}
+
+<!-- Section: notice -->
+
+<main role="main">
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">찾아가세요, 당신의 비디오 </h1>
+          <p class="lead text-muted"> Find and take your video, which Artists made only for you</p>
+          <p>
+            <a href="/" class="btn btn-primary my-2">Go to buy it</a>
+            <a href="#" class="btn btn-secondary my-2">second action button</a>
+          </p>
+        </div>
+      </section>
+
+
+    <div class="album py-5 ">
+        <div class="container">
+
+                <div class="row">
+                      {% for item in object_list %}
+
+                      <div class="col-md-2"  >
+                        <div class="card mb-2 box-shadow" style="width: 10rem;">
+                          <a href="{{ item.get_absolute_url }}">
+                            <div class="mask rgba-white-slight">
+                            <img class="card-img-top" src="" alt="Article" height = "100" width = "100" >
+                            </div>
+                          </a>
+                            <div class="card-body">
+                            <a href="{{ item.get_absolute_url }}">
+                            <p class="card-text">{{item.title}}</p>
+                            </a>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <small class="text-muted">9 mins</small>
+                            </div>
+                            </div>
+                        </div>
+                      </div></a>
+                      {% endfor %}
+                </div>
+        </div>
+      </div>
+
+        {% if is_paginated %}
+    <nav class="d-flex justify-content-center wow fadeIn">
+      <ul class="pagination pg-blue">
+
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        {% endif %}
+
+        <li class="page-item active">
+          <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
+
+    </main>
+
+
+<!-- Section: notice -->
+
+
+
+
+
+{% endblock content %}

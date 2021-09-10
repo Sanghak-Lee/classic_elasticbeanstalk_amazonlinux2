@@ -1,0 +1,338 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- SEO Meta Tags-->
+
+  <title>PlayPlz {% block head_title %}{% endblock %}</title>
+  <link rel = "icon" href = "/static/img/classic_logo.png">
+  {% block extra_head %}
+  {% endblock %}
+
+
+<!-- bootstrap4 font -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+
+
+<!-- Favicon and Touch Icons-->
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/new_assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="/static/new_assets/img/site.webmanifest">
+  <link rel="mask-icon" color="#5bbad5" href="/static/new_assets/img/safari-pinned-tab.svg">
+  <meta name="msapplication-TileColor" content="#766df4">
+  <meta name="theme-color" content="#ffffff">
+
+
+
+
+
+
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+  </style>
+
+
+
+<!-- 삽입 -->
+     <!-- Page loading styles-->
+    <style>
+      .cs-page-loading {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transition: all .4s .2s ease-in-out;
+        transition: all .4s .2s ease-in-out;
+        background-color: #fff;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9999;
+      }
+      .cs-page-loading.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .cs-page-loading-inner {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transition: opacity .2s ease-in-out;
+        transition: opacity .2s ease-in-out;
+        opacity: 0;
+      }
+      .cs-page-loading.active > .cs-page-loading-inner {
+        opacity: 1;
+      }
+      .cs-page-loading-inner > span {
+        display: block;
+        font-size: 1rem;
+        font-weight: normal;
+        color: #787a80;
+      }
+      .cs-page-spinner {
+        display: inline-block;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-bottom: .75rem;
+        vertical-align: text-bottom;
+        background-color: #cfcfd1;
+        border-radius: 50%;
+        opacity: 0;
+        -webkit-animation: spinner .75s linear infinite;
+        animation: spinner .75s linear infinite;
+      }
+      @-webkit-keyframes spinner {
+        0% {
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          -webkit-transform: none;
+          transform: none;
+        }
+      }
+      @keyframes spinner {
+        0% {
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          -webkit-transform: none;
+          transform: none;
+        }
+      }
+    </style>
+    <!-- Page loading scripts 너무 숫자좀 바꿔볼까.. -->
+    <script>
+      (function () {
+        window.onload = function () {
+          var preloader = document.querySelector('.cs-page-loading');
+          preloader.classList.remove('active');
+          setTimeout(function () {
+            preloader.remove();
+          }, 2000);
+        };
+      })();
+    </script>
+ <!-- 삽입 -->
+
+
+
+
+
+</head>
+
+
+{% if request.user.is_authenticated%}
+{% load cart_template_tags %} <!-- 이걸왜 여기에? 2021.06-->
+{% get_order_list as order_list %}
+{% endif %}
+{% include "navbar.html" %}
+    <!-- message -->
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+<body>
+
+
+    <!-- Page loading spinner-->
+    <div class="cs-page-loading active">
+      <div class="cs-page-loading-inner">
+        <div class="cs-page-spinner"></div><span>Loading...</span>
+      </div>
+    </div>
+<!--    &lt;!&ndash; Page loading spinner&ndash;&gt;-->
+<!--    <div class="cs-page-loading active">-->
+<!--      <div class="cs-page-loading-inner">-->
+<!--      <img src="/static/img/metronome.gif" width ="700" height ="700" ><br>-->
+<!--&lt;!&ndash;          <img src="/static/img/disc.gif" width ="400" height ="400" ><br>&ndash;&gt;-->
+<!--      <div class="cs-page-spinner"></div><h3>Own your only masterpiece</h3>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+<!-- Channel Plugin Scripts -->
+<script>
+  (function() {
+    var w = window;
+    if (w.ChannelIO) {
+      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+    }
+    var ch = function() {
+      ch.c(arguments);
+    };
+    ch.q = [];
+    ch.c = function(args) {
+      ch.q.push(args);
+    };
+    w.ChannelIO = ch;
+    function l() {
+      if (w.ChannelIOInitialized) {
+        return;
+      }
+      w.ChannelIOInitialized = true;
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+      s.charset = 'UTF-8';
+      var x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+    }
+    if (document.readyState === 'complete') {
+      l();
+    } else if (window.attachEvent) {
+      window.attachEvent('onload', l);
+    } else {
+      window.addEventListener('DOMContentLoaded', l, false);
+      window.addEventListener('load', l, false);
+    }
+  })();
+  ChannelIO('boot', {
+    "pluginKey": "7d016e02-ca8c-4b03-854a-cb6a67c28f72"
+  });
+</script>
+<!-- End Channel Plugin -->
+
+
+
+
+  {% block content %}
+  {% endblock content %}
+
+  {% block extra_body %}
+  {% endblock %}
+
+  {% include "footer.html" %}
+  {% include "scripts.html" %}
+
+  {% block extra_scripts %}
+  {% endblock extra_scripts %}
+
+ <!-- Back to top button-->
+
+
+</body>
+<!-- 수정필요 1 -->
+<!-- 폰트를 왜 헤드에 안먹이고 body밖에쓰냐... 카카오, 네이버 , 아임포트 plugin으로 인한 병목현상... 이거 elastic beanstalk 돌리고
+Webserver WSGI로 static 가져와야한다... js 파일은 extra script쪽에 쓰고,,,2021.07-->
+
+<!-- Main Theme Styles + Bootstrap-->
+ <link rel="stylesheet" media="screen" href="/static/new_assets/css/demo/ecommerce/theme.min.css">
+<!-- Vendor Styles-->
+<link rel="stylesheet" media="screen" href="/static/new_assets/vendor/tiny-slider/dist/tiny-slider.css"/>
+    <!-- Vendor scripts: js libraries and plugins-->
+    <script src="/static/new_assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/new_assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="/static/new_assets/vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+
+    <!-- Main theme script-->
+    <script src="/static/new_assets/js/theme.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    <link rel="stylesheet" media="screen" href="/static/css/classic.css">
+
+
+    <script src="/static/new_assets/vendor/jquery/dist/jquery.slim.min.js"></script>
+    <script src="/static/new_assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/new_assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="/static/new_assets/vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+    <script src="/static/new_assets/vendor/css-element-queries/src/ResizeSensor.js"></script>
+    <script src="/static/new_assets/vendor/sticky-sidebar/dist/sticky-sidebar.min.js"></script>
+
+    <!-- Main theme script-->
+    <script src="/static/new_assets/js/theme.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<!-- 너무 중복으로 많이 먹임 폰트먹인거 정리해야함 -->
+
+
+
+
+<!-- ajax 통신시 csrf 토큰 동기화 -->
+<script>
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+</script>
+
+
+
+</html>

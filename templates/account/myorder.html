@@ -1,0 +1,231 @@
+{% extends "account/base.html" %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% load cart_template_tags %}
+{% block content %}
+
+
+      <!-- Breadcrumb -->
+      <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+          <ol class="breadcrumb breadcrumb-alt mb-0">
+            <li class="breadcrumb-item">
+              <a href="/"><i class="cxi-home"></i></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">My orders</li>
+          </ol>
+        </div>
+      </nav>
+
+
+      <!-- Page container -->
+      <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
+        <div class="row pb-2 pb-lg-0">
+
+          <!-- Account menu (sticky sidebar) -->
+          <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
+            <div class="sidebar-sticky" data-sidebar-sticky-options='{
+              "topSpacing": 120,
+              "minWidth": 991
+            }'>
+              <div class="sidebar-sticky-inner">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title mb-1">{{user.username}}님</h5>
+                    <p class="card-text text-muted mb-lg-0">{{user.email}}</p>
+                    <a href="#account-menu" class="btn btn-primary btn-block d-lg-none" data-toggle="collapse">Account Menu</a>
+                  </div>
+                  <div id="account-menu" class="collapse d-lg-block">
+                    <div class="list-group list-group-flush border-top">
+                      <a href="{% url 'core:mypage' user.pk %}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="cxi-profile font-size-lg mr-2"></i>
+                        <span>마이페이지</span>
+                      </a>
+                      <a href="{% url 'core:myorder' user.pk %}" class="list-group-item list-group-item-action d-flex align-items-center active">
+                        <i class="cxi-bag font-size-lg mr-2"></i>
+                        <span>주문내역</span>
+                      </a>
+                      <a href="{% url 'core:like_artist' user.pk %}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="cxi-heart font-size-lg mr-2"></i>
+                        <span>좋아하는 아티스트</span>
+                        <span class="badge badge-warning ml-auto">{{request.user|following_count}}</span>
+                      </a>
+                      <a href="{% url 'core:like_album' user.pk %}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="cxi-star font-size-lg mr-2"></i>
+                        <span>좋아하는 앨범</span>
+                        <span class="badge badge-warning ml-auto">{{request.user|like_count}}</span>
+                      </a>
+                      <a href="{% url 'core:order-summary' %}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="cxi-cart font-size-lg mr-2"></i>
+                        <span>장바구니</span>
+                      </a>
+                      <a href="{% url 'core:myvideopage' user.pk %}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="cxi-photo font-size-lg mr-2"></i>
+                        <span>내 비디오 서재</span>
+                      </a>
+                      <a href="{% url 'account_logout' %}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="cxi-logout font-size-lg mr-2"></i>
+                        <span>로그아웃</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Content -->
+          <div class="col-lg-8 ml-auto">
+            <div class="d-flex align-items-center justify-content-between mb-4 pb-sm-2">
+              <h1 class="h2 mb-0">앨범 주문내역</h1>
+            </div>
+
+            <!-- Orders accordion -->
+            <div class="accordion-alt" id="orders">
+
+          {% for a in order.all %}
+
+              <!-- Order -->
+              <div class="card border-bottom">
+                <div class="card-header accordion-heading py-1">
+                  <a href="#order-{{a.pk}}" class="d-flex flex-wrap justify-content-between py-3" data-toggle="collapse" aria-expanded="false">
+                    <span class="pr-2">주문번호.{{a.pk}}</span>
+                    <span class="font-size-sm text-muted text-nowrap px-2">
+                      <i class="cxi-clock font-size-base align-middle mt-n1 mr-1"></i>
+                      {{a.ordered_date}}
+                    </span>
+                    {% if a.ordered %}
+                    <span class="badge badge-info">정상주문</span>
+                    {% else %}
+                    <span class="badge badge-danger">주문불량</span>
+                    {% endif %}
+                    <span class="text-dark pl-1">{{a.get_total|intcomma}}&#8361;</span>
+                  </a>
+                </div>
+                <div id="order-{{a.pk}}" class="collapse" data-parent="#orders">
+                  <div class="bg-secondary rounded mb-4">
+                    <div class="table-responsive">
+                      <table class="table mb-0">
+                        <tbody>
+                        {% for b in a.items.all %}
+                          <tr>
+                            <td class="border-top-0">
+                              <div class="media pl-2 py-2">
+                                <a href={{b.item.get_absolute_url}} style="min-width: 80px;">
+                                  <img src={{b.item.image.url}} width="80" alt="Product thumb">
+                                </a>
+                                <div class="media-body pl-3">
+                                  <h3 class="font-size-sm mb-3">
+                                    <a href={{b.item.get_absolute_url}} class="nav-link font-weight-bold">{{b.item.title}}</a>
+                                  </h3>
+
+                                  <ul class="list-unstyled font-size-xs mt-n2 mb-2">
+                                  <div class="d-flex justify-content-end align-items-center mb-1">
+                                  <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#data-{{a.pk}}{{b.item.pk}}">현배송 상황 추적하기</a>
+                                  </div>
+
+                                    {% if b.item.onlyforspecial == False %}
+                                    <div class="d-flex justify-content-end align-items-center mb-1">
+                                    <a href="{% url 'core:specialalbum_direct_add-to-cart' pk=user.pk orderitem_pk=b.pk %}" class="btn btn-outline-primary btn-sm">스페셜 앨범 소장하기</a>
+                                    </div>
+                                    {% endif %}
+
+                                    <div class="modal fade" id="data-{{a.pk}}{{b.item.pk}}" tabindex="-1" aria-labelledby="data-{{a.pk}}{{b.item.pk}}" aria-hidden="true">
+                                    <div class="modal-dialog modal-xl">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">{{request.user.username}}님의 앨범 배송여행</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                          {% include "account/trackorder.html" %}
+
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+                                  </ul>
+
+                                </div>
+                              </div>
+                            </td>
+                            <td class="border-top-0">
+                              <div class="py-2">
+                                <div class="font-size-xs text-muted mb-1">가격:</div>
+                                {% if b.item.discount_price%}
+                                <div class="font-size-sm text-dark">{{b.get_total_discount_item_price|intcomma}}&#8361;</div>
+                                {% else %}
+                                <div class="font-size-sm text-dark">{{b.get_total_item_price|intcomma}}&#8361;</div>
+                                {% endif %}
+                              </div>
+                            </td>
+                            <td class="border-top-0">
+                              <div class="py-2">
+                                <div class="font-size-xs text-muted mb-1">수량:</div>
+                                <div class="font-size-sm text-dark">{{ b.quantity }}</div>
+                              </div>
+                            </td>
+                            <td class="border-top-0">
+                              <div class="py-2 pr-3 text-right">
+                                <div class="font-size-xs text-muted mb-1">Subtotal:</div>
+                                <div class="font-size-sm font-weight-bold text-dark">{{b.get_final_price|intcomma}}&#8361;</div>
+                              </div>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                          <tr>
+                            <td>
+                              <div class="py-2 pl-2">
+                                <span class="font-size-xs text-muted">총 개수: </span>
+                                <span class="font-size-sm text-dark">{{a.get_total_count}}</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="py-2">
+                                <span class="font-size-xs text-muted">어떤 정보를 써줄까요1 </span>
+                                <span class="font-size-sm text-dark">Brain Storming</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="py-2">
+                                <span class="font-size-xs text-muted">어떤 정보를 써줄까요2  </span>
+                                <span class="font-size-sm text-dark">Brain Storming</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="py-2 pr-3 text-right">
+                                <span class="font-size-xs text-muted">합계:</span>
+                                <span class="font-size-sm font-weight-bold text-dark">{{a.get_total|intcomma}}&#8361;</span>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-end align-items-center mb-4">
+                    <a href="order-tracking.html" class="btn btn-outline-primary btn-sm">Brain Storming</a>
+                  </div>
+                </div>
+              </div>
+          {% endfor %}
+
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+{% endblock content %}
+

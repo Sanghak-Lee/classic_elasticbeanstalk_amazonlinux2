@@ -1,0 +1,635 @@
+{% load i18n %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load cart_template_tags %}
+{% load humanize %}
+
+
+
+
+<!-- Sign in modal-->
+      <div class="modal fade" id="modal-signin" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content border-0">
+
+            <!-- Sign in form -->
+
+
+
+
+            <div class="cs-view show" id="modal-signin-view">
+              <div class="modal-header border-0 pb-0 px-md-5 px-4 d-block position-relative">
+
+                <h3 class="modal-title mt-4 mb-0 text-center">Sign in</h3>
+                <button type="button" class="close position-absolute" style="top: 1.5rem; right: 1.5rem;" data-dismiss="modal" aria-label="Close">
+                  <i class="cxi-cross" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="modal-body px-md-5 px-4">
+                <p class="font-size-sm text-muted text-center">Sign in to your account using email and password provided during registration.</p>
+                <form class="needs-validation" method="POST" action="{% url 'account_login' %}" novalidate>
+                  {% csrf_token %}
+                    <div class="form-group">
+                    <label for="signin-email">ID</label>
+                    <input type="text" name = "login" class="form-control" id="signin-email" placeholder="Your email address" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="signin-password" class="form-label">Password</label>
+                    <div class="cs-password-toggle input-group-overlay">
+                      <input type="password" name = "password" class="form-control appended-form-control" id="signin-password" placeholder="Your password" required>
+                      <div class="input-group-append-overlay">
+                        <label class="btn cs-password-toggle-btn input-group-text">
+                          <input type="checkbox" class="custom-control-input">
+                          <i class="cxi-eye cs-password-toggle-indicator"></i>
+                          <span class="sr-only">Show password</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center form-group">
+
+                    <div class="custom-control custom-checkbox">
+                    <input type="checkbox" name ="remember" class="custom-control-input" id="remember-me" checked>
+                    <label for="remember-me" class="custom-control-label">Remember me</label>
+                    </div>
+                    <a href="{% url 'account_reset_password' %}" class="font-size-sm text-decoration-none">Forgot password?</a>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    <div class = "btn-block"></div> <!-- 공백 -->
+                   <span class="socialaccount_providers" >
+                   {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                   </span>
+                   {% include "socialaccount/snippets/login_extra.html" %}
+
+                  <p class="font-size-sm pt-4 mb-0">{% blocktrans %}
+                    Don't have an account?
+                    <a href="#" class="font-weight-bold text-decoration-none" data-view="#modal-signup-view">Sign up</a> first.{% endblocktrans %}</p>
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+                </form>
+              </div>
+            </div>
+
+            <!-- Sign up form -->
+            <div class="cs-view" id="modal-signup-view">
+              <div class="modal-header border-0 pb-0 px-md-5 px-4 d-block position-relative">
+                <h3 class="modal-title mt-4 mb-0 text-center">Sign up</h3>
+                <button type="button" class="close position-absolute" style="top: 1.5rem; right: 1.5rem;" data-dismiss="modal" aria-label="Close">
+                  <i class="cxi-cross" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="modal-body px-md-5 px-4">
+                <p class="font-size-sm text-muted text-center">Sign in to your account using email and password provided during registration.</p>
+                <form class="needs-validation" novalidate id="signup_form" method="post" action="{% url 'account_signup' %}">
+                            {% csrf_token %}
+                  <div class="form-group">
+                    <label for="signup-name">Full name</label>
+                    <input type="text" name = "username" class="form-control" id="signup-name" placeholder="Your full name" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" name = "email" class="form-control" id="signup-email" placeholder="Your email address" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="signup-password" class="form-label">Password</label>
+                    <div class="cs-password-toggle input-group-overlay">
+                      <input type="password" name = "password1" class="form-control appended-form-control" id="signup-password" placeholder="Your password" required>
+                      <div class="input-group-append-overlay">
+                        <label class="btn cs-password-toggle-btn input-group-text">
+                          <input type="checkbox" class="custom-control-input">
+                          <i class="cxi-eye cs-password-toggle-indicator"></i>
+                          <span class="sr-only">Show password</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="signup-confirm-password" class="form-label">Confirm password</label>
+                    <div class="cs-password-toggle input-group-overlay">
+                      <input type="password" name= "password2" class="form-control appended-form-control" id="signup-confirm-password" placeholder="Confirm your password" required>
+                      <div class="input-group-append-overlay">
+                        <label class="btn cs-password-toggle-btn input-group-text">
+                          <input type="checkbox" class="custom-control-input">
+                          <i class="cxi-eye cs-password-toggle-indicator"></i>
+                          <span class="sr-only">Show password</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary btn-block" type="submit">Sign up</button>
+                  <p class="font-size-sm pt-4 mb-0">Already have an account?
+                    <a href="#" class="font-weight-bold text-decoration-none" data-view="#modal-signin-view">Sign in</a>
+                  </p>
+                </form>
+              </div>
+            </div>
+            <div class="modal-body text-center px-0 pt-2 pb-4">
+              <hr>
+              <p class="font-size-sm text-heading mb-3 pt-4">Or sign in with</p>
+              <a href="#" class="social-btn sb-solid mx-1 mb-2" data-toggle="tooltip" title="Facebook">
+                <i class="cxi-facebook"></i>
+              </a>
+              <a href="#" class="social-btn sb-solid mx-1 mb-2" data-toggle="tooltip" title="Google">
+                <i class="cxi-google"></i>
+              </a>
+              <a href="#" class="social-btn sb-solid mx-1 mb-2" data-toggle="tooltip" title="Twitter">
+                <i class="cxi-twitter"></i>
+              </a>
+              <a href="#" class="social-btn sb-solid mx-1 mb-2" data-toggle="tooltip" title="LinkedIn">
+                <i class="cxi-linkedin"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Shopping cart off-canvas -->
+      <div id="cart" class="cs-offcanvas cs-offcanvas-right">
+
+        <!-- Header -->
+        <div class="cs-offcanvas-cap align-items-center border-bottom">
+          <h2 class="h5 mb-0">나의 앨범 ({{ request.user|cart_item_count }})</h2>
+          <button class="close mr-n1" type="button" data-dismiss="offcanvas" aria-label="Close">
+            <span class="h3 font-weight-normal mb-0" aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+
+        <!-- Body -->
+
+
+        {% if request.user.is_authenticated %}
+        <div class="cs-offcanvas-body">
+          <!-- Item -->
+
+          {% for a in order_list.all %}
+          {% for b in a.items.all %}
+          <div class="media p-4 border-bottom mx-n4">
+            <a href="{{b.item.get_absolute_url}}" style="min-width: 80px;">
+              <img src="{{ b.item.image.url }}" width="80" alt="Product thumb">
+            </a>
+            <div class="media-body pl-3">
+              <div class="d-flex justify-content-between">
+                <div class="pr-2">
+                  <h3 class="font-size-sm mb-3">
+                    <a href="{{b.item.get_absolute_url}}" class="nav-link font-weight-bold">{{b.item.title}}</a>
+                  </h3>
+                  <ul class="list-unstyled font-size-xs mt-n2 mb-2">
+                    <li class="mb-0"><span class="text-muted">Artist</span> {{b.item.user.username}}</li>
+                    <li class="mb-0"><span class="text-muted">Album No.</span> {{b.item.pk}}</li>
+                  </ul>
+
+                    <div class="d-flex align-items-center">
+                    <input type="number" class="form-control form-control-sm bg-light mr-3" style="width: 4.5rem;" value={{ b.quantity }} readonly>
+
+                      {% if b.item.discount_price %}
+                      <div class="text-nowrap"><strong class="text-danger">{{b.item.discount_price|intcomma}}&#8361;</strong> <s class="font-size-xs text-muted">{{b.item.price|intcomma}}&#8361;</s></div>
+                      {% else %}
+                      <div class="text-nowrap"><strong>{{b.item.price|intcomma}}&#8361;</strong></div>
+                      {% endif %}
+                     <div class="nav-muted mr-n2">
+                     <a href="{{b.item.get_remove_from_cart_url}}" class="nav-link px-2 mt-n2" data-toggle="tooltip" title="Remove"><i class="cxi-delete"></i></a>
+                     </div>
+                    </div>
+
+
+
+              </div>
+            </div>
+          </div>
+          </div>
+          {% endfor %}
+          {% endfor %}
+
+
+
+        <!-- Footer -->
+        {% for a in order_list.all %}
+        <div class="cs-offcanvas-cap flex-column border-top">
+          <div class="d-flex align-items-center justify-content-between mb-3 pb-1">
+            <span class="text-muted mr-2">합계:</span>
+            <span class="h5 mb-0">{{a.get_total|intcomma}}&#8361;</span>
+          </div>
+          <a href="/checkout" class="btn btn-primary btn-lg btn-block">
+            <i class="cxi-credit-card font-size-lg mt-n1 mr-1"></i>
+            Checkout
+          </a>
+        </div>
+        {% endfor %}
+
+      </div>
+      {% endif %}
+     </div>
+
+
+
+
+        <!-- Header (Topbar + Navbar) -->
+      <header class="cs-header">
+
+        <!-- Topbar -->
+        <div class="topbar topbar-dark bg-dark">
+          <div class="container d-flex align-items-center px-0 px-xl-3">
+
+              <div class="mr-3">
+             <div class="navbar-expand-lg">
+            <!-- Navbar collapse -->
+             <div class="dropdown">
+              <a href="tel:01029543621" class="nav-link dropdown-toggle d-lg-inline-block d-none ml-4 pl-1 text-decoration-none text-nowrap" data-toggle="dropdown">
+                Make One & Only Masterpiece
+              </a>
+              <div class="dropdown-menu dropdown-menu-left">
+                <li><a href="tel:01029543621" class="dropdown-item">오직 나만을 위한 특별한 퍼포먼스를 만들다</a></li>
+              </div>
+            </div>
+            </div>
+              </div>
+
+
+
+
+
+<!-- Magic 효과 만드려고... -->
+
+
+
+
+
+
+
+
+            {% if request.user.is_authenticated %}
+
+
+
+
+
+             {% else %}
+            <a href="#modal-signin" class="topbar-link d-lg-inline-block d-none ml-1 pl-1 text-decoration-none text-nowrap" data-toggle="modal" data-view="#modal-signin-view">
+              <i class="cxi-profile mr-1 font-size-base align-middle"></i>
+              Sign in / up
+            </a>
+
+            {% endif %}
+
+
+          </div>
+        </div>
+
+        <!-- Navbar -->
+        <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page -->
+        <div class="navbar navbar-expand-lg navbar-light bg-light navbar-sticky" data-fixed-element>
+          <div class="container px-0 px-xl-3">
+            <a href="/" class="navbar-brand order-lg-1 mr-0 pr-lg-3 mr-lg-4">
+              <img src="/static/new_assets/img/ecommerce/PLAYPLZ.png" alt="Playplz Logo" width="200" height = "50">
+            </a>
+<!--            &lt;!&ndash; Search desktop &ndash;&gt;-->
+<!--            <div class="input-group-overlay ml-4 d-lg-block d-none order-lg-3" style="max-width: 21rem;">-->
+<!--              <input class="form-control appended-form-control" type="text" placeholder="Search for products...">-->
+<!--              <div class="input-group-append-overlay">-->
+<!--                <span class="input-group-text"><i class="cxi-search lead align-middle"></i></span>-->
+<!--              </div>-->
+<!--            </div>-->
+            <!-- Toolbar -->
+            <div class="d-flex align-items-center order-lg-6">
+              <ul class="nav nav-tools flex-nowrap">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item d-lg-block d-none mt-2">
+                  <a href="{% url 'core:like_album' user.pk %}" class="nav-tool">
+                    <i class="cxi-heart nav-tool-icon"></i>
+                    <span class="nav-tool-label">{{request.user|like_count}}</span>
+                  </a>
+                </li>
+                {% endif %}
+                <li class="divider-vertical mb-0 d-lg-block d-none"></li>
+                <li class="nav-item align-self-center mb-0">
+                  <a href="#" class="nav-tool pr-lg-0" data-toggle="offcanvas" data-target="cart">
+                    <i class="cxi-cart nav-tool-icon"></i>
+                    <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">{{ request.user|cart_item_count }}</span>
+                  </a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="divider-vertical mb-0 d-lg-none d-block"></li>
+
+                          <div class="navbar-expand-lg">
+            <!-- Navbar collapse -->
+             <div class="dropdown">
+              <a href="#" class="nav-link dropdown-toggle d-lg-inline-block d-none ml-4 pl-1 text-decoration-none text-nowrap" data-toggle="dropdown">
+                <i class="cxi-profile mr-1 font-size-base align-middle"></i>
+                {{request.user.username}}
+              </a>
+              <div class="dropdown-menu dropdown-menu-left">
+                <a href="{% url 'core:mypage' user.pk %}" class="dropdown-item d-flex align-items-center">
+                  <i class="cxi-profile font-size-base mr-2"></i>
+                  <span>마이페이지</span>
+                </a>
+                <a href="{% url 'core:myorder' user.pk %}" class="dropdown-item d-flex align-items-center">
+                  <i class="cxi-bag font-size-base mr-2"></i>
+                  <span>주문내역</span>
+                </a>
+                <a href="{% url 'core:like_artist' user.pk %}" class="dropdown-item d-flex align-items-center">
+                  <i class="cxi-heart font-size-base mr-2"></i>
+                  <span>좋아하는 아티스트</span>
+                  <span class="badge badge-warning ml-auto">{{request.user|following_count}}</span>
+                </a>
+                <a href="{% url 'core:like_album' user.pk %}" class="dropdown-item d-flex align-items-center">
+                  <i class="cxi-star font-size-base mr-2"></i>
+                  <span>좋아하는 앨범</span>
+                  <span class="badge badge-warning ml-auto">{{request.user|like_count}}</span>
+                </a>
+                <a href="{% url 'core:order-summary' %}" class="dropdown-item d-flex align-items-center">
+                  <i class="cxi-cart font-size-base mr-2"></i>
+                  <span>장바구니</span>
+                </a>
+                <a href="{% url 'core:myvideopage' user.pk %}" class="dropdown-item d-flex align-items-center">
+                  <i class="cxi-photo font-size-base mr-2"></i>
+                  <span>내 비디오 서재</span>
+                </a>
+
+
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'account_logout' %}" class="dropdown-item d-flex align-items-center">
+                  <i class="cxi-logout font-size-base mr-2"></i>
+                  <span>로그아웃</span>
+                </a>
+              </div>
+            </div>
+            </div>
+
+                {% endif %}
+              </ul>
+            </div>
+            <!-- Navbar collapse -->
+            <nav class="collapse navbar-collapse order-lg-2" id="navbarCollapse">
+              <!-- Search mobile -->
+              <div class="input-group-overlay form-group mb-0 d-lg-none d-block">
+                <input type="text" class="form-control prepended-form-control rounded-0 border-0" placeholder="Search for products...">
+                <div class="input-group-prepend-overlay">
+                  <span class="input-group-text">
+                    <i class="cxi-search font-size-lg align-middle mt-n1"></i>
+                  </span>
+                </div>
+              </div>
+              <!-- Menu -->
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">플레이플리즈</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'core:404' %}" class="dropdown-item">PLAYPLZ 회사소개</a></li>
+                  </ul>
+                </li>
+                {% if request.user.is_authenticated %}
+                <!-- 로그인된 상태(장바구니 기능 활성화) -->
+                <li class="nav-item dropdown mega-dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">퍼포먼스</a>
+                  <div class="dropdown-menu">
+                    <div class="container pt-lg-1 pb-lg-3">
+                      <div class="row">
+                        <div class="col-lg-2 col-md-3 py-2">
+                          <ul class="list-unstyled">
+                          </ul>
+                        </div>
+                        <div class="col-lg-2 col-md-3 py-2">
+                          <h4 class="font-size-sm text-uppercase pt-1 mb-2">Make Masterpiece</h4>
+                          <ul class="list-unstyled">
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=birthday" class="dropdown-item"  data-toggle="tooltip" data-placement="left" title="특별한 연주 선물 만들기">축하</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item"  data-toggle="tooltip" data-placement="left" title="특별한 연주 선물 만들기">감사</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="특별한 연주 선물 만들기">위로</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="특별한 연주 선물 만들기">사랑</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="특별한 연주 선물 만들기">친구</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="특별한 연주 선물 만들기">비즈니스</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="특별한 연주 선물 만들기">기타</a></li>
+                          </ul>
+                        </div>
+
+                         <div class="col-lg-2 col-md-3 py-2">
+                          <h4 class="font-size-sm text-uppercase pt-1 mb-2">Copy Performance</h4>
+                          <ul class="list-unstyled">
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=birthday" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="특별한 연주 팁 찾기">건반악기</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="특별한 연주 팁 찾기">현악기</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="특별한 연주 팁 찾기">관악기</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="특별한 연주 팁 찾기">타악기</a></li>
+                          </ul>
+                        </div>
+
+                          <div class="col-lg-2 col-md-3 py-2">
+                          <h4 class="font-size-sm text-uppercase pt-1 mb-2">Find Artist</h4>
+                          <ul class="list-unstyled">
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=birthday" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="취향저격 아티스트 보기">클래식</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="취향저격 아티스트 보기">재즈</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="취향저격 아티스트 보기">뉴에이지</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="취향저격 아티스트 보기">작사/작곡</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="취향저격 아티스트 보기">커버곡</a></li>
+                          </ul>
+                        </div>
+                        <div class="col-lg-1 d-none d-lg-block py-2">
+                          <span class="divider-vertical h-100 mx-auto"></span>
+                        </div>
+                        <div class="col-lg-2 col-md-3 py-2">
+                          <h4 class="font-size-sm text-uppercase pt-1 mb-2">MD'S PICK</h4>
+                          <ul class="list-unstyled">
+                            <li>Album</li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=parents" class="dropdown-item">특별한날</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=birthday" class="dropdown-item">힙하게 돌멩이 주우러 가는 날 </a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=birthday" class="dropdown-item">디즈니 노래에 빠지고 싶은 날</a></li>
+                            <li><a href="{% url 'core:MDPICK_ITEM' %}?mdpick=birthday" class="dropdown-item">비오는 날</a></li>
+                            <li><a href="{% url 'core:product_list' %}" class="dropdown-item"><strong>모든 앨범 보기</strong></a></li>
+                          </ul>
+                          <hr>
+                          <ul class="list-unstyled">
+                            <li>Artist</li>
+                            <li><a href="{% url 'core:MDPICK_ARTIST' %}?mdpick=today_artist" class="dropdown-item">오늘의 아티스트</a></li>
+                            <li><a href="{% url 'core:MDPICK_ARTIST' %}?mdpick=new_artist" class="dropdown-item">새로 들어온! 아티스트</a></li>
+                            <li><a href="{% url 'core:MDPICK_ARTIST' %}?mdpick=new_artist" class="dropdown-item">이번주 가장 바쁜 아티스트</a></li>
+                            <li><a href="{% url 'core:MDPICK_ARTIST' %}?mdpick=new_artist" class="dropdown-item">빠르게 제작해주는 아티스트</a></li>
+                            <li><a href="{% url 'core:artist_profile' %}" class="dropdown-item"><strong>모든 아티스트 보기</strong></a></li>
+                          </ul>
+                        </div>
+
+
+
+
+
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                {% else %}
+                <!-- 로그인 안된 상태(장바구니 기능 비활성화) -->
+                <li class="nav-item dropdown mega-dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">카테고리</a>
+                  <div class="dropdown-menu">
+                    <div class="container pt-lg-1 pb-lg-3">
+                      <div class="row">
+                        <div class="col-lg-2 col-md-3 py-2">
+                          <ul class="list-unstyled">
+                          </ul>
+                        </div>
+                        <div class="col-lg-2 col-md-3 py-2">
+                          <h4 class="font-size-sm text-uppercase pt-1 mb-2">ANNIVERSARIES</h4>
+                          <ul class="list-unstyled">
+                            <li><a href="#" class="dropdown-item">생일</a></li>
+                            <li><a href="#" class="dropdown-item">부모님</a></li>
+                            <li><a href="#" class="dropdown-item">아이들</a></li>
+                            <li><a href="#" class="dropdown-item">커플</a></li>
+                            <li><a href="#" class="dropdown-item">친구</a></li>
+                            <li><a href="#" class="dropdown-item">공식 행사</a></li>
+                            <li><a href="#" class="dropdown-item">기타</a></li>
+                          </ul>
+                        </div>
+                        <div class="col-lg-2 col-md-3 py-2">
+                          <h4 class="font-size-sm text-uppercase pt-1 mb-2">INSTRUMENTS</h4>
+                          <ul class="list-unstyled">
+                            <li><a href="#" class="dropdown-item">관악기</a></li>
+                            <li><a href="#" class="dropdown-item">현악기</a></li>
+                            <li><a href="#" class="dropdown-item">타악기</a></li>
+                            <li><a href="#" class="dropdown-item">기타</a></li>
+                          </ul>
+                        </div>
+                        <div class="col-lg-2 col-md-3 py-2">
+                          <h4 class="font-size-sm text-uppercase pt-1 mb-2">MD'S PICK</h4>
+                          <ul class="list-unstyled">
+                            <li><a href="#" class="dropdown-item">오늘의 아티스트</a></li>
+                            <li><a href="#" class="dropdown-item">오늘의 작품</a></li>
+                            <li><a href="{% url 'core:artist_profile' %}" class="dropdown-item">모든 아티스트 보기</a></li>
+                          </ul>
+                        </div>
+                        <div class="col-lg-1 d-none d-lg-block py-2">
+                          <span class="divider-vertical h-100 mx-auto"></span>
+                        </div>
+                        <div class="col-lg-3 d-none d-lg-block py-2">
+                          <a href="#" class="d-block text-decoration-none pt-1">
+                            <img src="/static/img/classic_logo.png" class="d-block rounded mb-3" alt="put 아티스트 비디오">
+                            <h5 class="font-size-sm mb-3">Happy Birthday To Your Love. Sale up to 50%</h5>
+                            <div class="btn btn-outline-primary btn-sm">
+                              See offers
+                              <i class="cxi-arrow-right ml-1"></i>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                {% endif %}
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">커뮤니티</a>
+                  <ul class="dropdown-menu">
+                     <li><a href="{% url 'core:video_list' %}" class="dropdown-item">15초 Video!</a></li>
+<!--                     <li><a href="{% url 'core:myvideolist'  %}" class="dropdown-item">비디오 공간</a></li>-->
+                  </ul>
+                </li>
+                {% if user.is_staff %}
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">아티스트 공간</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'core:artist_home' %}" class="dropdown-item">아티스트 상점</a></li>
+                    <li><a href="blog-single.html" class="dropdown-item">Single Post</a></li>
+                    <li><a href="contacts.html" class="dropdown-item">Contacts</a></li>
+                    <li><a href="order-tracking.html" class="dropdown-item">Order Tracking</a></li>
+                  </ul>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                  <a href="#modal-signin" class="nav-link d-lg-none" data-toggle="modal" data-view="#modal-signin-view">
+                    <i class="cxi-profile font-size-base align-middle mr-1"></i>
+                    Sign in / up
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+
+
+
+
+{#<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">#}
+{#  <div class="container">#}
+{##}
+{#    <!-- Brand -->#}
+{#    <a class="navbar-brand waves-effect" href="/">#}
+{#   <!--   <img src = "/static/img/logo.jpg" width = "80" height = "40">-->#}
+{#      <strong class="blue-text">PlayPlz</strong>#}
+{#     <!--<img src ="/static/img/tmp.png" width="200" height = "100">-->#}
+{#      </a>#}
+{##}
+{#    <!-- Collapse -->#}
+{#    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"#}
+{#      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
+{#      <span class="navbar-toggler-icon"></span>#}
+{#    </button>#}
+{##}
+{#    <!-- Links -->#}
+{#    <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
+{##}
+{#      <!-- Left -->#}
+{#      <ul class="navbar-nav mr-auto">#}
+{#         <!--<li class="nav-item active">#}
+{#          <a class="nav-link waves-effect" href="/">Home#}
+{#            <span class="sr-only">(current)</span>#}
+{#          </a>#}
+{#        </li> -->#}
+{#        {% if request.user.is_authenticated %}#}
+{#        <li class="nav-item">#}
+{#          <a class="nav-link waves-effect" href="/checkout">#}
+{#            결제하기</a>#}
+{#        </li>#}
+{##}
+{#        <li class="nav-item">#}
+{#        <a class="nav-link waves-effect" href="{% url 'core:myvideolist' %}"> 나를 기다리는 비디오 찾으러가기 </a>#}
+{#        </li>#}
+{#        {% endif %}#}
+{#      </ul>#}
+{#      <!-- Right -->#}
+{##}
+{##}
+{#      <ul class="navbar-nav nav-flex-icons">#}
+{#      {% if request.user.is_authenticated %}#}
+{#        <li class="nav-item">#}
+{#            <a href="{% url 'core:order-summary' %}" class="nav-link waves-effect">#}
+{#            <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>#}
+{##}
+{#            <i class="fas fa-compact-disc"></i>#}
+{#            <span class="clearfix d-none d-sm-inline-block"> 내 앨범 </span>#}
+{#          </a>#}
+{#        </li>#}
+{#        <li class="nav-item">#}
+{#          <a class="nav-link waves-effect" href="{% url 'account_logout' %}">#}
+{#            <span class="clearfix d-none d-sm-inline-block"> 로그아웃 </span>#}
+{#          </a>#}
+{#        </li>#}
+{#        <li class="nav-item">#}
+{#          <a class="nav-link waves-effect" href="{% url 'core:mypage' user.pk %}">#}
+{#            <span class="clearfix d-none d-sm-inline-block"> 마이페이지 </span>#}
+{#          </a>#}
+{#        </li>#}
+{#        <li class="nav-item">#}
+{#          <a class="nav-link waves-effect" href="{% url 'core:myvideopage' user.pk %}">#}
+{#            <span class="clearfix d-none d-sm-inline-block"> 비디오페이지 </span>#}
+{#          </a>#}
+{#        </li>#}
+{#        {% else %}#}
+{#        <li class="nav-item">#}
+{#          <a class="nav-link waves-effect" href="{% url 'account_login' %}">#}
+{#            <span class="clearfix d-none d-sm-inline-block"> 로그인 </span>#}
+{#          </a>#}
+{#        </li>#}
+{#        <li class="nav-item">#}
+{#          <a class="nav-link waves-effect" href="{% url 'account_signup' %}">#}
+{#            <span class="clearfix d-none d-sm-inline-block"> 회원가입 </span>#}
+{#          </a>#}
+{#        </li>#}
+{##}
+{##}
+{#        {% endif %}#}
+{#      </ul>#}
+{#    </div>#}
+{##}
+{#  </div>#}
+{#</nav>#}

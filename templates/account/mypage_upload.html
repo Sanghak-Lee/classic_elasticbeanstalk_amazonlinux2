@@ -1,0 +1,15 @@
+{% extends "account/base.html" %}
+
+{% block content %}
+<a class = "container-fluid"> <br><br><br><br><br><br><br><br><br><br><br><br><br>{{user.id}} : {{user.username}}</a>
+
+mypage_upload
+
+<form action="" method="POST" enctype = "multipart/form-data">{% csrf_token %}
+
+    {{form}}
+    <button type="submit"> Upload New Video </button>
+</form>
+
+
+{% endblock content %}
